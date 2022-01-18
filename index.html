@@ -130,155 +130,36 @@
           ],
           elements: {
             nodes: [
-              { data: { id: 'g1', name: 'Goblins' } },
-              { data: { id: 'jeppe', name: 'Jesper',  parent: 'g1'} },
-              { data: { id: 'ille', name: 'Ilaman', parent: 'g1' } },
+
+              // Categories
               { data: { id: 'books', name: 'Books' } },
-              { data: { id: 'hobbit', name: 'The hobbit', parent: 'books' } },
-              { data: { id: 'rotk', name: 'Return of the king', parent: 'books' } },
-              { data: { id: 'fotr', name: 'Fellowship of the ring', parent: 'books' } }
+              { data: { id: 'lotr', name: 'Lord of the rings', parent: 'books' } },
+              { data: { id: 'docs', name: 'Documents' } },
+              { data: { id: 'team', name: 'Team' } },
+
+              // Objects
+              { data: { id: 'hobbit', name: 'The Hobbit', parent: 'books' } },
+              { data: { id: 'fotr', name: 'Fellowship of the ring', parent: 'lotr' } },
+              { data: { id: 'ttt', name: 'The Two Towers', parent: 'lotr' } },
+              { data: { id: 'rotk', name: 'Return of the king', parent: 'lotr' } },
+              { data: { id: 'secret', name: 'Secret Document', parent: 'docs' } },
+
+              // Subjects
+              { data: { id: 'ille', name: 'Ilaman', parent: 'team' } },
+              { data: { id: 'jeppe', name: 'Jesper', parent: 'team' } },
+              { data: { id: 'emil', name: 'Emil', parent: 'team' } },
+              { data: { id: 'birger', name: 'Birger', parent: 'team' } }
             ],
             edges: [
               { data: { name: 'read', source: 'jeppe', target: 'hobbit' } },
-              { data: { name: 'write', source: 'jeppe', target: 'rotk' } },
-              { data: { name: 'read', source: 'ille', target: 'fotr' } },
-              { data: { name: 'write', source: 'ille', target: 'fotr' } }
+              { data: { name: 'write', source: 'jeppe', target: 'fotr' } },
+              { data: { name: 'read', source: 'ille', target: 'rotk' } },
+              { data: { name: 'write', source: 'emil', target: 'secret' } },
+              { data: { name: 'read', source: 'birger', target: 'secret' } },
+              { data: { name: 'write', source: 'birger', target: 'secret' } },
+              { data: { name: 'read', source: 'emil', target: 'ttt' } },
             ]
           }
-          /*
-          elements: [
-            {
-              "data": {
-                "id": "g1"
-              },
-              "position": {
-                "x": 122.50374073928583,
-                "y": 367.98329788349827
-              },
-              "group": "nodes",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": "",
-              'content': 'data(name)'
-            }, {
-              "data": {
-                "id": "n1",
-                "parent": "g1"
-              },
-              "position": {
-                "x": 209.0674320882374,
-                "y": 382.7065284623535
-              },
-              "group": "nodes",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": ""
-            }, {
-              "data": {
-                "id": "n2",
-                "parent": "g1"
-              },
-              "position": {
-                "x": 142.2888292225041,
-                "y": 450.92046107173917
-              },
-              "group": "nodes",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": ""
-            }, {
-              "data": {
-                "id": "g2"
-              },
-              "position": {
-                "x": 467.0267020797804,
-                "y": 200.2773842699168
-              },
-              "group": "nodes",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": ""
-            }, {
-              "data": {
-                "id": "n3",
-                "parent": "g2"
-              },
-              "position": {
-                "x": 417.4178741533308,
-                "y": 205.50672352045078
-              },
-              "group": "nodes",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": ""
-            }, {
-              "data": {
-                "id": "n4"
-              },
-              "position": {
-                "x": 170.4178741533308,
-                "y": 205.50672352045078
-              },
-              "group": "nodes",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": ""
-            }, {
-              "data": {
-                "id": "g1:g2",
-                "source": "g1",
-                "target": "g2"
-              },
-              "position": {},
-              "group": "edges",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": ""
-            }, {
-              "data": {
-                "id": "n4:n3",
-                "source": "n4",
-                "target": "n3"
-              },
-              "position": {},
-              "group": "edges",
-              "removed": false,
-              "selected": false,
-              "selectable": true,
-              "locked": false,
-              "grabbed": false,
-              "grabbable": true,
-              "classes": ""
-            }
-          ]*/
         });
 
 
@@ -301,10 +182,6 @@
           eh.addNode();
         });
 
-        /*document.querySelector('#start').addEventListener('click', function() {
-          eh.start( cy.$('node:selected') );
-        });*/
-
       });
       cy.layout({ name: 'grid' }).run();
 
@@ -316,7 +193,6 @@
     <div id="cy"></div>
 
     <div id="buttons">
-      <!-- <button id="start">Start on selected</button> -->
       <button id="draw-on">Draw mode on</button>
       <button id="draw-off">Draw mode off</button>
       <button id="delete-element">Delete element</button>
