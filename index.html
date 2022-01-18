@@ -14,6 +14,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
     <script src="cytoscape-edgehandles.js"></script>
+    <script src="cytoscape-cose-bilkent.js"></script>
 
     <style>
       body {
@@ -51,11 +52,14 @@
         var cy = window.cy = cytoscape({
           container: document.getElementById('cy'),
 
-          layout: {
-            name: 'concentric',
-            concentric: function(n){ return n.id() === 'j' ? 200 : 0; },
-            levelWidth: function(nodes){ return 100; },
-            minNodeSpacing: 100
+          ready: function(){
+            this.nodes().forEach(function(node){
+              let width = [30, 70, 110];
+              let size = width[Math.floor(Math.random()*3)];
+              node.css("width", size);
+              node.css("height", size);
+            });
+            this.layout({name: 'cose-bilkent', animationDuration: 1000}).run();
           },
 
           style: [
@@ -181,9 +185,7 @@
         document.querySelector('#add-node').addEventListener('click', function() {
           eh.addNode();
         });
-
       });
-      cy.layout({ name: 'grid' }).run();
 
     </script>
   </head>
