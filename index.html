@@ -1,0 +1,328 @@
+<!DOCTYPE>
+
+<html>
+
+  <head>
+    <title>NGAC policy tool</title>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+    <!-- for testing with local version of cytoscape.js -->
+    <!--<script src="../cytoscape.js/build/cytoscape.js"></script>-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+    <script src="cytoscape-edgehandles.js"></script>
+
+    <style>
+      body {
+        font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
+        font-size: 14px;
+      }
+
+      #cy {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 999;
+      }
+
+      h1 {
+        opacity: 0.5;
+        font-size: 1em;
+        font-weight: bold;
+      }
+
+      #buttons {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 99999;
+        margin: 1em;
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+
+        var cy = window.cy = cytoscape({
+          container: document.getElementById('cy'),
+
+          layout: {
+            name: 'concentric',
+            concentric: function(n){ return n.id() === 'j' ? 200 : 0; },
+            levelWidth: function(nodes){ return 100; },
+            minNodeSpacing: 100
+          },
+
+          style: [
+            {
+              selector: 'node[name]',
+              style: {
+                'content': 'data(name)'
+              }
+            },
+
+            {
+              selector: 'edge',
+              style: {
+                'curve-style': 'bezier',
+                'target-arrow-shape': 'triangle',
+                'content': 'data(name)'
+              }
+            },
+
+            // some style for the extension
+            {
+              selector: '.eh-handle',
+              style: {
+                'background-color': 'red',
+                'width': 12,
+                'height': 12,
+                'shape': 'ellipse',
+                'overlay-opacity': 0,
+                'border-width': 12, // makes the handle easier to hit
+                'border-opacity': 0
+              }
+            },
+
+            {
+              selector: '.eh-hover',
+              style: {
+                'background-color': 'red'
+              }
+            },
+
+            {
+              selector: '.eh-source',
+              style: {
+                'border-width': 2,
+                'border-color': 'red'
+              }
+            },
+
+            {
+              selector: '.eh-target',
+              style: {
+                'border-width': 2,
+                'border-color': 'red'
+              }
+            },
+
+            {
+              selector: '.eh-preview, .eh-ghost-edge',
+              style: {
+                'background-color': 'red',
+                'line-color': 'red',
+                'target-arrow-color': 'red',
+                'source-arrow-color': 'red'
+              }
+            },
+            {
+              selector: '.eh-ghost-edge.eh-preview-active',
+              style: {
+                'opacity': 0
+              }
+            }
+          ],
+          elements: {
+            nodes: [
+              { data: { id: 'g1', name: 'Goblins' } },
+              { data: { id: 'jeppe', name: 'Jesper',  parent: 'g1'} },
+              { data: { id: 'ille', name: 'Ilaman', parent: 'g1' } },
+              { data: { id: 'books', name: 'Books' } },
+              { data: { id: 'hobbit', name: 'The hobbit', parent: 'books' } },
+              { data: { id: 'rotk', name: 'Return of the king', parent: 'books' } },
+              { data: { id: 'fotr', name: 'Fellowship of the ring', parent: 'books' } }
+            ],
+            edges: [
+              { data: { name: 'read', source: 'jeppe', target: 'hobbit' } },
+              { data: { name: 'write', source: 'jeppe', target: 'rotk' } },
+              { data: { name: 'read', source: 'ille', target: 'fotr' } },
+              { data: { name: 'write', source: 'ille', target: 'fotr' } }
+            ]
+          }
+          /*
+          elements: [
+            {
+              "data": {
+                "id": "g1"
+              },
+              "position": {
+                "x": 122.50374073928583,
+                "y": 367.98329788349827
+              },
+              "group": "nodes",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": "",
+              'content': 'data(name)'
+            }, {
+              "data": {
+                "id": "n1",
+                "parent": "g1"
+              },
+              "position": {
+                "x": 209.0674320882374,
+                "y": 382.7065284623535
+              },
+              "group": "nodes",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": ""
+            }, {
+              "data": {
+                "id": "n2",
+                "parent": "g1"
+              },
+              "position": {
+                "x": 142.2888292225041,
+                "y": 450.92046107173917
+              },
+              "group": "nodes",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": ""
+            }, {
+              "data": {
+                "id": "g2"
+              },
+              "position": {
+                "x": 467.0267020797804,
+                "y": 200.2773842699168
+              },
+              "group": "nodes",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": ""
+            }, {
+              "data": {
+                "id": "n3",
+                "parent": "g2"
+              },
+              "position": {
+                "x": 417.4178741533308,
+                "y": 205.50672352045078
+              },
+              "group": "nodes",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": ""
+            }, {
+              "data": {
+                "id": "n4"
+              },
+              "position": {
+                "x": 170.4178741533308,
+                "y": 205.50672352045078
+              },
+              "group": "nodes",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": ""
+            }, {
+              "data": {
+                "id": "g1:g2",
+                "source": "g1",
+                "target": "g2"
+              },
+              "position": {},
+              "group": "edges",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": ""
+            }, {
+              "data": {
+                "id": "n4:n3",
+                "source": "n4",
+                "target": "n3"
+              },
+              "position": {},
+              "group": "edges",
+              "removed": false,
+              "selected": false,
+              "selectable": true,
+              "locked": false,
+              "grabbed": false,
+              "grabbable": true,
+              "classes": ""
+            }
+          ]*/
+        });
+
+
+        var eh = cy.edgehandles({
+        });
+
+        document.querySelector('#draw-on').addEventListener('click', function() {
+          eh.enableDrawMode();
+        });
+
+        document.querySelector('#draw-off').addEventListener('click', function() {
+          eh.disableDrawMode();
+        });
+
+        document.querySelector('#delete-element').addEventListener('click', function() {
+          eh.deleteElement();
+        });
+
+        document.querySelector('#add-node').addEventListener('click', function() {
+          eh.addNode();
+        });
+
+        /*document.querySelector('#start').addEventListener('click', function() {
+          eh.start( cy.$('node:selected') );
+        });*/
+
+      });
+      cy.layout({ name: 'grid' }).run();
+
+    </script>
+  </head>
+
+  <body>
+
+    <div id="cy"></div>
+
+    <div id="buttons">
+      <!-- <button id="start">Start on selected</button> -->
+      <button id="draw-on">Draw mode on</button>
+      <button id="draw-off">Draw mode off</button>
+      <button id="delete-element">Delete element</button>
+      <button id="add-node">Add node</button>
+    </div>
+
+  </body>
+
+</html>
