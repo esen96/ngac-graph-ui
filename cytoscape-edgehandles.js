@@ -296,10 +296,10 @@ function deleteElement() {
 }
 
 function addNode() {
+	let inputName = window.prompt("Enter name: ");
 	cy.add({
 	    group: 'nodes',
-	    data: { weight: 75 },
-	    position: { x: 200, y: 200 }
+	    data: { name: inputName },
 		});
 	return this;
 }
@@ -396,11 +396,22 @@ function makeEdges() {
   if (!preview) {
     previewEles.removeClass('eh-preview').style('events', '');
 
+		//window.alert('HEJ');
+		let privilege = window.prompt("Enter access privilege: ");
+
+		// Identify newly added edge
+		var newEdge = cy.edges(
+			'[source = "' + source.id() + '"]' +
+			'[target = "' + target.id() + '"]' +
+			'[!name]' // Find the edge without a name, this will be the new one
+		);
+
+		newEdge.data('name', privilege)
+
     this.emit('complete', this.mp(), source, target, previewEles);
 
     return;
   }
-
   var source2target = cy.add(getEleJson({
     group: 'edges',
     data: {
@@ -413,11 +424,9 @@ function makeEdges() {
 
   if (preview) {
     this.previewEles = added;
-
     added.style('events', 'no');
   } else {
     added.style('events', '');
-
     this.emit('complete', this.mp(), source, target, added);
   }
 

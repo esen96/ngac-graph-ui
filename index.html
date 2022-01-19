@@ -8,13 +8,18 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
     <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-
-    <!-- for testing with local version of cytoscape.js -->
-    <!--<script src="../cytoscape.js/build/cytoscape.js"></script>-->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
     <script src="cytoscape-edgehandles.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.7/shim.min.js"></script>
+    <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+    <script src="https://unpkg.com/cose-base/cose-base.js"></script>
     <script src="cytoscape-cose-bilkent.js"></script>
+
+    <!-- panzoom-->
+    <link href="cytoscape.js-panzoom.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<link href="font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css" />
+		<script src="cytoscape-panzoom.js"></script>
 
     <style>
       body {
@@ -53,8 +58,15 @@
           container: document.getElementById('cy'),
 
           ready: function(){
+            this.nodes().forEach(function(node){
+              let width = [30, 70, 110];
+              let size = width[Math.floor(Math.random()*3)];
+              node.css("width", size);
+              node.css("height", size);
+            });
             this.layout({name: 'cose-bilkent', animationDuration: 1000}).run();
           },
+
 
           style: [
             {
@@ -131,9 +143,10 @@
 
               // Categories
               { data: { id: 'books', name: 'Books' } },
-              { data: { id: 'lotr', name: 'Lord of the rings', parent: 'books' } },
+
               { data: { id: 'docs', name: 'Documents' } },
               { data: { id: 'team', name: 'Team' } },
+              { data: { id: 'lotr', name: 'Lord of the rings', parent: 'books' } },
 
               // Objects
               { data: { id: 'hobbit', name: 'The Hobbit', parent: 'books' } },
@@ -149,13 +162,10 @@
               { data: { id: 'birger', name: 'Birger', parent: 'team' } }
             ],
             edges: [
-              { data: { name: 'read', source: 'jeppe', target: 'hobbit' } },
               { data: { name: 'write', source: 'jeppe', target: 'fotr' } },
-              { data: { name: 'read', source: 'ille', target: 'rotk' } },
-              { data: { name: 'write', source: 'emil', target: 'secret' } },
-              { data: { name: 'read', source: 'birger', target: 'secret' } },
+              { data: { id: 'test', name: 'read', source: 'ille', target: 'ttt' } },
               { data: { name: 'write', source: 'birger', target: 'secret' } },
-              { data: { name: 'read', source: 'emil', target: 'ttt' } },
+              { data: { name: 'read', source: 'emil', target: 'rotk' } }
             ]
           }
         });
@@ -179,6 +189,11 @@
         document.querySelector('#add-node').addEventListener('click', function() {
           eh.addNode();
         });
+
+        cy.panzoom({
+					// options here...
+				});
+
       });
 
     </script>
