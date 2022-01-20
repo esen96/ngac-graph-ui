@@ -11,3 +11,20 @@ function addNode() {
 	    data: { name: inputName },
 		});
 }
+
+// Control NGAC constraints before allowing placed edge (incomplete)
+function controlEdge(sourceID, targetID) {
+
+  let privilege = window.prompt("Enter access privilege: ");
+
+  // Identify newly added edge
+  var newEdge = cy.edges(
+    '[source = "' + sourceID + '"]' +
+    '[target = "' + targetID + '"]' +
+    '[!name]' // Find the edge without a name, this will be the new one
+  );
+
+  newEdge.data('name', privilege)
+
+  // TODO: Delete placed edge if constraints aren't met
+}
