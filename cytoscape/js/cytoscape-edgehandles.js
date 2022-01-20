@@ -290,20 +290,6 @@ function toggleDrawMode(bool) {
   return this;
 }
 
-function deleteElement() {
-	var eles = cy.$(':selected').remove();
-	return this;
-}
-
-function addNode() {
-	let inputName = window.prompt("Enter name: ");
-	cy.add({
-	    group: 'nodes',
-	    data: { name: inputName },
-		});
-	return this;
-}
-
 function enableDrawMode() {
   return this.toggleDrawMode(true);
 }
@@ -316,9 +302,7 @@ function disableDrawMode() {
 module.exports = {
 	toggleDrawMode: toggleDrawMode,
 	enableDrawMode: enableDrawMode,
-	disableDrawMode: disableDrawMode,
-	deleteElement: deleteElement,
-	addNode: addNode
+	disableDrawMode: disableDrawMode
 };
 
 /***/ }),
