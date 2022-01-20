@@ -1,0 +1,32 @@
+body {
+  font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
+  font-size: 14px;
+}
+
+#cy {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+}
+
+#buttons {
+  position: absolute;
+  right: 2rem;
+  top: 25%;
+  z-index: 99999;
+}
+
+#buttons button {
+  background: #fff;
+  color: #666;
+  margin-top: 20px;
+  font-size: 50px;
+  padding: 10%;
+  border: 1px solid gray;
+  cursor: pointer;
+  display: block;
+  border-radius: 10%;
+}
