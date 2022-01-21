@@ -15,7 +15,9 @@
     <script src="cytoscape/js/dependencies.js"></script>
     <script src="cytoscape/js/cytoscape.min.js"></script>
 		<script src="cytoscape/js/cytoscape-extensions.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="ngac.js"></script>
+
 
     <script>
       document.addEventListener('DOMContentLoaded', function(){
@@ -165,12 +167,13 @@
     <div id="cy"></div>
 
     <div id="buttons" class="cy-panzoom">
-      <div class="toggle">
-        <button id="draw-on"><i class="fas fa-draw-polygon"></i></button>
-        <button id="draw-off"><i class="fas fa-expand-arrows-alt"></i></button>
-      </div>
+
+      <button id="draw-off" class="drawoff"><i class="fas fa-expand-arrows-alt"></i></button>
+      <button id="draw-on"><i class="fas fa-draw-polygon"></i></button>
+
       <button id="add-node"><i class="fas fa-plus"></i></button>
       <button id="delete-element"><i class="fas fa-trash-alt"></i></button>
+
     </div>
 
   </body>

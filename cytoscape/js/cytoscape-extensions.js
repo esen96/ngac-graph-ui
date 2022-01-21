@@ -1340,10 +1340,12 @@ function toggleDrawMode(bool) {
 }
 
 function enableDrawMode() {
+	displayDrawMode();
   return this.toggleDrawMode(true);
 }
 
 function disableDrawMode() {
+	displayDrawMode();
   return this.toggleDrawMode(false);
 }
 

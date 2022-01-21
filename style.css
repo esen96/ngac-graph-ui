@@ -33,6 +33,32 @@ body {
   border-radius: 10%;
 }
 
-#buttons .toggle button:focus-within{
-  background: #aaa;
+
+#buttons button.drawon {
+  color: black;
+  background: #FF3131;
+}
+
+#buttons button.drawoff {
+  color: black;
+  background: #0096FF;
+}
+
+#buttons #draw-off:hover{
+  background: #0096FF;
+}
+
+#buttons #draw-on:hover{
+  color: black;
+  background: #FF3131;
+}
+
+#buttons #add-node:hover{
+  color: black;
+  background: #32CD32;
+}
+
+#buttons #delete-element:hover{
+  color: black;
+  background: yellow;
 }

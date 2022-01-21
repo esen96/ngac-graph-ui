@@ -24,7 +24,14 @@ function controlEdge(sourceID, targetID) {
     '[!name]' // Find the edge without a name, this will be the new one
   );
 
+	// TODO: Delete placed edge if constraints aren't met
+
   newEdge.data('name', privilege)
 
-  // TODO: Delete placed edge if constraints aren't met
+}
+
+// Toggles button classes and coloring for draw- and pan mode
+function displayDrawMode() {
+	$('#draw-on').toggleClass('drawon');
+	$('#draw-off').toggleClass('drawoff');
 }
