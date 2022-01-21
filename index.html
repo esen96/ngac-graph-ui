@@ -138,10 +138,12 @@
 
         document.querySelector('#draw-on').addEventListener('click', function() {
           eh.enableDrawMode();
+          displayDrawMode();
         });
 
         document.querySelector('#draw-off').addEventListener('click', function() {
           eh.disableDrawMode();
+          displayDrawMode();
         });
 
         document.querySelector('#delete-element').addEventListener('click', function() {
