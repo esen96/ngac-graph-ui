@@ -21,12 +21,13 @@ function controlEdge(sourceID, targetID) {
   var newEdge = cy.edges(
     '[source = "' + sourceID + '"]' +
     '[target = "' + targetID + '"]' +
-    '[!name]' // Find the edge without a name, this will be the new one
+    '[!name]'  // Find the edge without a name, this will be the new one
   );
 
 	// TODO: Delete placed edge if constraints aren't met
 
-  newEdge.data('name', privilege)
+  newEdge.data('name', privilege);
+	newEdge.addClass('edgelabel');
 
 }
 

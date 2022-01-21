@@ -49,8 +49,18 @@
             {
               selector: '.object',
               style: {
-                'shape': 'round-rectangle',
+                'shape': 'rectangle',
                 'width': '50px'
+              }
+            },
+
+            {
+              "selector": ".edgelabel",
+              "style": {
+                "color": "#fff",
+                "text-outline-color": "#888",
+                "text-outline-width": 2,
+                'font-size': '12px'
               }
             },
 
@@ -131,10 +141,10 @@
               { data: { id: 'birger', name: 'Birger', parent: 'team' }, classes: 'subject' }
             ],
             edges: [
-              { data: { name: 'write', source: 'jeppe', target: 'fotr' } },
-              { data: { id: 'test', name: 'read', source: 'ille', target: 'ttt' } },
-              { data: { name: 'write', source: 'birger', target: 'secret' } },
-              { data: { name: 'read', source: 'emil', target: 'rotk' } }
+              { data: { name: 'write', source: 'jeppe', target: 'fotr' }, classes: 'edgelabel' },
+              { data: { id: 'test', name: 'read', source: 'ille', target: 'ttt' }, classes: 'edgelabel' },
+              { data: { name: 'write', source: 'birger', target: 'secret' }, classes: 'edgelabel' },
+              { data: { name: 'read', source: 'emil', target: 'rotk' }, classes: 'edgelabel' }
             ]
           }
         });
