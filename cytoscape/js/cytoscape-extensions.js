@@ -114,7 +114,7 @@ var defaults = {
   // Whether to fit the network view after when done
   fit: true,
   // Padding on fit
-  padding: 150,
+  padding: 50,
   // Whether to enable incremental mode
   randomize: true,
   // Node repulsion (non overlapping) multiplier

@@ -169,6 +169,15 @@
 
         document.querySelector('#add-node').addEventListener('click', function() {
           addNode();
+          var layout = cy.layout({
+            name: 'cose-bilkent',
+            animate: 'end',
+            animationEasing: 'ease-out',
+            animationDuration: 2000,
+            randomize: true
+          });
+
+          layout.run();
         });
 
         cy.panzoom({
