@@ -13,20 +13,26 @@ body {
 }
 
 #buttons {
-  position: absolute;
-  right: 2rem;
-  top: 25%;
-  z-index: 99999;
+  position: fixed;
+  right: 2.25rem;
+  margin-bottom: 8rem;
+	color: #fff;
+	color: #666;
+	z-index: 99999;
 }
 
 #buttons button {
-  background: #fff;
-  color: #666;
-  margin-top: 20px;
   font-size: 50px;
-  padding: 10%;
+  background: #fff;
+  margin-top: 1rem;
+  padding: 7%;
+  color: #666;
   border: 1px solid gray;
   cursor: pointer;
   display: block;
   border-radius: 10%;
+}
+
+#buttons .toggle button:focus-within{
+  background: #aaa;
 }
