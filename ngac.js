@@ -45,10 +45,12 @@ class NgacDoc {
 			this.#drawMode = true;
 			$('#draw-on').toggleClass('drawon');
 			$('#draw-off').toggleClass('drawoff');
+			return true; // Overlay fix to extension bug
 		} else if (this.#drawMode == true && bool == false) {
 			this.#drawMode = false;
 			$('#draw-on').toggleClass('drawon');
 			$('#draw-off').toggleClass('drawoff');
+			return true; // Overlay fix to extension bug
 		}
 	}
 }

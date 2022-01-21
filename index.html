@@ -159,13 +159,15 @@
 
 
         document.querySelector('#draw-on').addEventListener('click', function() {
-          eh.enableDrawMode();
-          ngacJS.displayDrawMode(true);
+          if (ngacJS.displayDrawMode(true)) {
+            eh.enableDrawMode();
+          }
         });
 
         document.querySelector('#draw-off').addEventListener('click', function() {
-          eh.disableDrawMode();
-          ngacJS.displayDrawMode(false);
+          if (ngacJS.displayDrawMode(false)) {
+            eh.disableDrawMode();
+          }
         });
 
         document.querySelector('#delete-element').addEventListener('click', function() {
@@ -178,7 +180,7 @@
             name: 'cose-bilkent',
             animate: 'end',
             animationEasing: 'ease-out',
-            animationDuration: 4000,
+            animationDuration: 4000, // added delay to prevent snapping
             randomize: true
           });
 
