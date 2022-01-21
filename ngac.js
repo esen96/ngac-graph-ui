@@ -1,38 +1,54 @@
-// Delete selected graph element
-function deleteElement() {
-	cy.$(':selected').remove();
-}
+class NgacDoc {
 
-// Add graph node
-function addNode() {
-	let inputName = window.prompt("Enter name: ");
-	cy.add({
-	    group: 'nodes',
-	    data: { name: inputName },
-		});
-}
+	#drawMode;
 
-// Control NGAC constraints before allowing placed edge (incomplete)
-function controlEdge(sourceID, targetID) {
+	constructor() {
+		this.#drawMode = false;
+	}
 
-  let privilege = window.prompt("Enter access privilege: ");
+	// Delete selected graph element
+	deleteElement() {
+		cy.$(':selected').remove();
+	}
 
-  // Identify newly added edge
-  var newEdge = cy.edges(
-    '[source = "' + sourceID + '"]' +
-    '[target = "' + targetID + '"]' +
-    '[!name]'  // Find the edge without a name, this will be the new one
-  );
+	// Add graph node
+	addNode() {
+		let inputName = window.prompt("Enter name: ");
+		cy.add({
+		    group: 'nodes',
+		    data: { name: inputName },
+			});
+	}
 
-	// TODO: Delete placed edge if constraints aren't met
+	// Control NGAC constraints before allowing placed edge (incomplete)
+	controlEdge(sourceID, targetID) {
 
-  newEdge.data('name', privilege);
-	newEdge.addClass('edgelabel');
+	  let privilege = window.prompt("Enter access privilege: ");
 
-}
+	  // Identify newly added edge
+	  var newEdge = cy.edges(
+	    '[source = "' + sourceID + '"]' +
+	    '[target = "' + targetID + '"]' +
+	    '[!name]'  // Find the edge without a name, this will be the new one
+	  );
 
-// Toggles button classes and coloring for draw- and pan mode
-function displayDrawMode() {
-	$('#draw-on').toggleClass('drawon');
-	$('#draw-off').toggleClass('drawoff');
+		// TODO: Delete placed edge if constraints aren't met
+
+	  newEdge.data('name', privilege);
+		newEdge.addClass('edgelabel');
+
+	}
+
+	// Toggles button classes and coloring for draw- and pan mode
+	displayDrawMode(bool) {
+		if (this.#drawMode == false && bool == true) {
+			this.#drawMode = true;
+			$('#draw-on').toggleClass('drawon');
+			$('#draw-off').toggleClass('drawoff');
+		} else if (this.#drawMode == true && bool == false) {
+			this.#drawMode = false;
+			$('#draw-on').toggleClass('drawon');
+			$('#draw-off').toggleClass('drawoff');
+		}
+	}
 }

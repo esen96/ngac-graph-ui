@@ -19,6 +19,9 @@
 
 
     <script>
+
+      var ngacJS = new NgacDoc();
+
       document.addEventListener('DOMContentLoaded', function(){
 
         var cy = window.cy = cytoscape({
@@ -150,30 +153,32 @@
         });
 
 
+
         var eh = cy.edgehandles({
         });
 
+
         document.querySelector('#draw-on').addEventListener('click', function() {
           eh.enableDrawMode();
-          displayDrawMode();
+          ngacJS.displayDrawMode(true);
         });
 
         document.querySelector('#draw-off').addEventListener('click', function() {
           eh.disableDrawMode();
-          displayDrawMode();
+          ngacJS.displayDrawMode(false);
         });
 
         document.querySelector('#delete-element').addEventListener('click', function() {
-          deleteElement();
+          ngacJS.deleteElement();
         });
 
         document.querySelector('#add-node').addEventListener('click', function() {
-          addNode();
+          ngacJS.addNode();
           var layout = cy.layout({
             name: 'cose-bilkent',
             animate: 'end',
             animationEasing: 'ease-out',
-            animationDuration: 2000,
+            animationDuration: 4000,
             randomize: true
           });
 
@@ -184,8 +189,12 @@
 					// options here...
 				});
 
-
       });
+
+      // Function added due to constraint call from extension file
+      function controlEdge(sourceID, targetID){
+        ngacJS.controlEdge(sourceID, targetID);
+      }
 
     </script>
   </head>
