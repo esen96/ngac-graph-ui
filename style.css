@@ -45,6 +45,7 @@ body {
 }
 
 #buttons #draw-off:hover{
+  color: black;
   background: #0096FF;
 }
 
