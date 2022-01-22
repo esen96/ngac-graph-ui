@@ -39,15 +39,10 @@ class NgacDoc {
 
 	}
 
-	// Toggles button classes and coloring for draw- and pan mode
+	// Toggles button classes for draw- and pan mode buttons
 	displayDrawMode(bool) {
-		if (this.#drawMode == false && bool == true) {
-			this.#drawMode = true;
-			$('#draw-on').toggleClass('drawon');
-			$('#draw-off').toggleClass('drawoff');
-			return true; // Overlay fix to extension bug
-		} else if (this.#drawMode == true && bool == false) {
-			this.#drawMode = false;
+		if (this.#drawMode != bool) {
+			this.#drawMode = !this.#drawMode;
 			$('#draw-on').toggleClass('drawon');
 			$('#draw-off').toggleClass('drawoff');
 			return true; // Overlay fix to extension bug
