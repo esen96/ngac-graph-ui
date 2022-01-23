@@ -22,9 +22,14 @@ class NgacDoc {
 				classes: type
 			});
 
+			// print all the ids of the nodes in the graph
+			cy.nodes().forEach(function( ele ){
+			  console.log( ele.id() );
+			});
+
 			// Assign attribute if one was selected
 			if (attr != 'None') {
-				cy.$('#' + ele_name).move({parent: attr});
+				this.getById(ele_name).move({parent: attr}); // <------------ WHITESPACE ID ERROR HÄR
 			}
 
 			this.updateAttributes();
@@ -150,5 +155,10 @@ class NgacDoc {
 		var targetfield = document.getElementById('targetfield');
 		sourcefield.placeholder = source;
 		targetfield.placeholder = target;
+	}
+
+	// To avoid cytoscape api and whitespace errors
+	getById(id){
+		return cy.$("[id='" + id + "']");
 	}
 }
