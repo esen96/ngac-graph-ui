@@ -16,21 +16,18 @@ class NgacDoc {
 			var attr = document.getElementById('attributefield').value;
 			var type = document.getElementById('typefield').value;
 
+			cy.add({
+				group: 'nodes',
+				data: { id: ele_name, name: ele_name },
+				classes: type
+			});
+
 			// Assign attribute if one was selected
 			if (attr != 'None') {
-				cy.add({
-			    group: 'nodes',
-			    data: { id: ele_name, name: ele_name, parent: attr },
-					classes: type
-				});
-			} else {
-				cy.add({
-			    group: 'nodes',
-			    data: { id: ele_name, name: ele_name },
-					classes: type
-				});
+				cy.$('#' + ele_name).move({parent: attr});
 			}
 
+			this.updateAttributes();
 			this.nodePrompt(false);
 			this.renderLayout();
 		}
@@ -39,17 +36,8 @@ class NgacDoc {
 	// Delete selected graph element
 	deleteElement() {
 		var element = cy.$(':selected');
-		this.clearIfAttr(element);
 		element.remove();
-	}
-
-	// Clear from attribute list if element is an attribute
-	clearIfAttr(element){
-		var isAttr = element.hasClass('Attribute');
-		if (isAttr) {
-			var elementName = element.data('name');
-			$("#attributefield option[value='" + elementName + "']").remove();
-		}
+		this.updateAttributes();
 	}
 
 	// Control NGAC constraints before allowing placed edge (incomplete)
@@ -94,15 +82,17 @@ class NgacDoc {
 	}
 
 	// Load all parents to the attribute field in element add prompt
-			//TODO: load by attribute class tag instead of isParent
-	loadAttributes(){
+	updateAttributes(){
+		$("#attributefield").empty();
 		var attrfield = document.getElementById('attributefield');
+		var none = document.createElement('option');
+		none.text = 'None';
+		attrfield.add(none);
 		cy.nodes().forEach(function( ele ){
-			if (ele.isParent()) {
+			if (ele.hasClass('attribute')) {
 				var option = document.createElement('option');
 				var name = ele.data('name');
 				option.text = name;
-				option.value = name;
 				attrfield.add(option);
 			}
 		});
