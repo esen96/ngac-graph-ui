@@ -38,7 +38,18 @@ class NgacDoc {
 
 	// Delete selected graph element
 	deleteElement() {
-		cy.$(':selected').remove();
+		var element = cy.$(':selected');
+		this.clearIfAttr(element);
+		element.remove();
+	}
+
+	// Clear from attribute list if element is an attribute
+	clearIfAttr(element){
+		var isAttr = element.hasClass('Attribute');
+		if (isAttr) {
+			var elementName = element.data('name');
+			$("#attributefield option[value='" + elementName + "']").remove();
+		}
 	}
 
 	// Control NGAC constraints before allowing placed edge (incomplete)
@@ -83,13 +94,15 @@ class NgacDoc {
 	}
 
 	// Load all parents to the attribute field in element add prompt
-			//TODO: change to attribute class tag instead of isParent
+			//TODO: load by attribute class tag instead of isParent
 	loadAttributes(){
+		var attrfield = document.getElementById('attributefield');
 		cy.nodes().forEach(function( ele ){
 			if (ele.isParent()) {
-				var attrfield = document.getElementById('attributefield');
 				var option = document.createElement('option');
-				option.text = ele.data('name');
+				var name = ele.data('name');
+				option.text = name;
+				option.value = name;
 				attrfield.add(option);
 			}
 		});
