@@ -18,7 +18,6 @@ class NgacDoc {
 
 			// Assign attribute if one was selected
 			if (attr != 'None') {
-				console.log(attr);
 				cy.add({
 			    group: 'nodes',
 			    data: { id: ele_name, name: ele_name, parent: attr },
@@ -51,8 +50,6 @@ class NgacDoc {
 	    '[target = "' + document.getElementById('targetfield').placeholder + '"]' +
 	    '[!name]'  // Find the edge without a name, this will be the new one
 	  );
-
-		console.log(newEdge);
 
 		// TODO: Delete placed edge and alert if constraints aren't met
 		var edgeName = document.getElementById('relationfield').value;
@@ -126,7 +123,6 @@ class NgacDoc {
 		var prompt = document.getElementById('add-element');
 		this.promptOverlay(bool);
 		if (bool) {
-			this.loadAttributes();
 			prompt.style.display = "block";
 		} else {
 			prompt.style.display = "none";
