@@ -22,7 +22,7 @@ class NgacDoc {
 				classes: type
 			});
 
-			// Assign attribute if one was selected
+			// Assign to attribute if one was selected
 			if (attr != 'None') {
 				this.getById(ele_name).move({parent: attr});
 			}
@@ -47,7 +47,7 @@ class NgacDoc {
 	  var newEdge = cy.edges(
 	    '[source = "' + document.getElementById('sourcefield').placeholder + '"]' +
 	    '[target = "' + document.getElementById('targetfield').placeholder + '"]' +
-	    '[!name]'  // The edge without a name will be the one we've added
+	    '[!name]'  // The edge without a name will be newly added
 	  );
 
 		// TODO: Delete placed edge and alert if constraints aren't met
@@ -59,7 +59,7 @@ class NgacDoc {
 
 	}
 
-	// Toggles button classes for draw- and pan mode buttons
+	// Toggles draw- and pan mode buttons
 	displayDrawMode(bool) {
 		if (this.#drawMode != bool) {
 			this.#drawMode = !this.#drawMode;
@@ -81,7 +81,7 @@ class NgacDoc {
 		layout.run();
 	}
 
-	// Load all parents to the attribute field in element add prompt
+	// Load all parents to the attribute field in add element prompt
 	updateAttributes(){
 		$("#attributefield").empty();
 		var attrfield = document.getElementById('attributefield');
@@ -152,7 +152,7 @@ class NgacDoc {
 		targetfield.placeholder = target;
 	}
 
-	// To avoid cytoscape api and id whitespace error
+	// To avoid api and cytoscape id whitespace error
 	getById(id){
 		return cy.$("[id='" + id + "']");
 	}
