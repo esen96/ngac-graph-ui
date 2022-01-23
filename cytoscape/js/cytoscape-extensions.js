@@ -1432,7 +1432,7 @@ function makeEdges() {
 		let sourceID = source.id();
 		let targetID = target.id();
 
-		controlEdge(sourceID, targetID); // Control NGAC constraints
+		edgePrompt(true, sourceID, targetID); // pass to NGAC system
 
     this.emit('complete', this.mp(), source, target, previewEles);
 

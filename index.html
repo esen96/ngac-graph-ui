@@ -51,7 +51,7 @@
             },
 
             {
-              selector: '.object',
+              selector: '.Object',
               style: {
                 'shape': 'rectangle',
                 'width': '50px'
@@ -125,30 +125,30 @@
             nodes: [
 
               // Categories
-              { data: { id: 'books', name: 'Books' } },
+              { data: { id: 'Books', name: 'Books' } },
 
-              { data: { id: 'docs', name: 'Documents' } },
-              { data: { id: 'team', name: 'Team' } },
-              { data: { id: 'lotr', name: 'Lord of the rings', parent: 'books' } },
+              { data: { id: 'Documents', name: 'Documents' } },
+              { data: { id: 'Team', name: 'Team' } },
+              { data: { id: 'Lord of the rings', name: 'Lord of the rings', parent: 'Books' } },
 
               // Objects
-              { data: { id: 'hobbit', name: 'The Hobbit', parent: 'books' }, classes: 'object' },
-              { data: { id: 'fotr', name: 'Fellowship of the ring', parent: 'lotr' }, classes: 'object' },
-              { data: { id: 'ttt', name: 'The Two Towers', parent: 'lotr' }, classes: 'object' },
-              { data: { id: 'rotk', name: 'Return of the king', parent: 'lotr' }, classes: 'object' },
-              { data: { id: 'secret', name: 'Secret Document', parent: 'docs' }, classes: 'object' },
+              { data: { id: 'The Hobbit', name: 'The Hobbit', parent: 'Books' }, classes: 'Object' },
+              { data: { id: 'Fellowship of the ring', name: 'Fellowship of the ring', parent: 'Lord of the rings' }, classes: 'Object' },
+              { data: { id: 'The Two Towers', name: 'The Two Towers', parent: 'Lord of the rings' }, classes: 'Object' },
+              { data: { id: 'Return of the king', name: 'Return of the king', parent: 'Lord of the rings' }, classes: 'Object' },
+              { data: { id: 'Secret Document', name: 'Secret Document', parent: 'Documents' }, classes: 'Object' },
 
               // Subjects
-              { data: { id: 'ille', name: 'Ilaman', parent: 'team' }, classes: 'user' },
-              { data: { id: 'jeppe', name: 'Jesper', parent: 'team' }, classes: 'user' },
-              { data: { id: 'emil', name: 'Emil', parent: 'team' }, classes: 'user' },
-              { data: { id: 'birger', name: 'Birger', parent: 'team' }, classes: 'user' }
+              { data: { id: 'Ilaman', name: 'Ilaman', parent: 'Team' }, classes: 'User' },
+              { data: { id: 'Jesper', name: 'Jesper', parent: 'Team' }, classes: 'User' },
+              { data: { id: 'Emil', name: 'Emil', parent: 'Team' }, classes: 'User' },
+              { data: { id: 'Birger', name: 'Birger', parent: 'Team' }, classes: 'User' }
             ],
             edges: [
-              { data: { name: 'write', source: 'jeppe', target: 'fotr' }, classes: 'edgelabel' },
-              { data: { id: 'test', name: 'read', source: 'ille', target: 'ttt' }, classes: 'edgelabel' },
-              { data: { name: 'write', source: 'birger', target: 'secret' }, classes: 'edgelabel' },
-              { data: { name: 'read', source: 'emil', target: 'rotk' }, classes: 'edgelabel' }
+              { data: { name: 'Write', source: 'Jesper', target: 'Fellowship of the ring' }, classes: 'edgelabel' },
+              { data: { name: 'Read', source: 'Ilaman', target: 'The Two Towers' }, classes: 'edgelabel' },
+              { data: { name: 'Write', source: 'Birger', target: 'Secret Document' }, classes: 'edgelabel' },
+              { data: { name: 'Read', source: 'Emil', target: 'Return of the king' }, classes: 'edgelabel' }
             ]
           }
         });
@@ -176,16 +176,11 @@
         });
 
         document.querySelector('#add-node').addEventListener('click', function() {
-          ngacJS.addNode();
-          var layout = cy.layout({
-            name: 'cose-bilkent',
-            animate: 'end',
-            animationEasing: 'ease-out',
-            animationDuration: 2000,
-            randomize: true
-          });
+          ngacJS.nodePrompt(true);
+        });
 
-          layout.run();
+        document.querySelector('#add-edge').addEventListener('click', function() {
+          ngacJS.controlEdge();
         });
 
         cy.panzoom({
@@ -195,8 +190,8 @@
       });
 
       // Function added due to constraint call from extension file
-      function controlEdge(sourceID, targetID){
-        ngacJS.controlEdge(sourceID, targetID);
+      function edgePrompt(bool, source, target){
+        ngacJS.edgePrompt(bool, source, target);
       }
 
     </script>
@@ -216,55 +211,56 @@
 
     </div>
 
-    <div class="add-menu" style="display: none;">
+    <div id="prompt-overlay"></div>
+
+    <div class="add-menu" style="display: block;">
 
 
-      <!-- Add user menu-->
-
-      <div id="add-user" class="add-user" style="display: none;">
+      <!-- Add element prompt div -->
+      <div id="add-element" class="add-element" style="display: none;">
 
         <h2>New element</h2>
 
-        <form class="" action="index.html" method="post">
 
-          <div class="mb-3">
-            <label for="namefield" class="form-label">Name</label>
-            <input type="text" class="form-control" id="namefield" aria-describedby="emailHelp" required>
-          </div>
 
-          <div class="mb-3">
-            <label for="attributefield" class="form-label">Attribute</label>
-            <select class="form-select" id="attributefield" aria-label="Default select example">
-              <option selected>None</option>
-              <option value="1">List parents here</option>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="namefield" class="form-label">Name</label>
+          <input type="text" class="form-control" id="namefield" aria-describedby="emailHelp" required>
+        </div>
 
-          <div class="mb-3">
-            <label for="typefield" class="form-label">Type</label>
-            <select class="form-select" id="typefield"aria-label="Default select example">
-              <option selected>User</option>
-              <option value="1">Object</option>
-              <option value="2">User attribute</option>
-              <option value="3">Object attribute</option>
-              <option value="4">Policy class</option>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="attributefield" class="form-label">Attribute</label>
+          <select class="form-select" id="attributefield" aria-label="Default select example">
+            <option selected>None</option>
+          </select>
+        </div>
 
-          <div class="add-button">
-            <input type="button" class="btn btn-primary" value="Add element">
-          </div>
+        <div class="mb-3">
+          <label for="typefield" class="form-label">Type</label>
+          <select class="form-select" id="typefield" aria-label="Default select example">
+            <option selected>User</option>
+            <option>Object</option>
+            <option>User attribute</option>
+            <option>Object attribute</option>
+            <option>Policy class</option>
+          </select>
+        </div>
 
-          <div class="ngac-bottom-tag">
-            <h1>NGAC policy tool</h1>
-          </div>
+        <div class="add-button">
+          <input type="submit" class="btn btn-primary" value="Add element" onclick="ngacJS.addNode()">
+        </div>
 
-        </form>
+        <div class="ngac-bottom-tag">
+          <h1>NGAC policy tool</h1>
+        </div>
+
 
       </div>
-      <!-- Add user menu -->
+      <!-- -->
 
-      <!-- Add relation -->
+
+
+      <!-- Add relation prompt div -->
       <div id="add-relation" class="add-relation" style="display: none;">
 
         <h2>New relation</h2>
@@ -272,12 +268,12 @@
         <fieldset disabled>
           <div class="mb-3">
             <label for="sourcefield" class="form-label">Source</label>
-            <input type="text" id="disabledTextInput" class="form-control" placeholder="Insert source here">
+            <input type="text" id="sourcefield" class="form-control">
           </div>
 
           <div class="mb-3">
-            <label for="targetfield" class="form-label">Source</label>
-            <input type="text" id="targetfield" class="form-control" placeholder="Insert target here">
+            <label for="targetfield" class="form-label">Target</label>
+            <input type="text" id="targetfield" class="form-control">
           </div>
         </fieldset>
 
@@ -285,12 +281,12 @@
           <label for="relationfield" class="form-label">Attribute</label>
           <select class="form-select" id="relationfield" aria-label="Default select example">
             <option selected>Read</option>
-            <option value="1">Write</option>
+            <option>Write</option>
           </select>
         </div>
 
         <div class="add-button">
-          <input type="button" class="btn btn-primary" value="Add relation">
+          <input type="button" id="add-edge" class="btn btn-primary" value="Add relation">
         </div>
 
         <div class="ngac-bottom-tag">
@@ -298,8 +294,9 @@
         </div>
 
       </div>
+      <!-- -->
 
-      <!-- Add relation -->
+
 
     </div>
 
