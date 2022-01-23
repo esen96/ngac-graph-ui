@@ -22,14 +22,9 @@ class NgacDoc {
 				classes: type
 			});
 
-			// print all the ids of the nodes in the graph
-			cy.nodes().forEach(function( ele ){
-			  console.log( ele.id() );
-			});
-
 			// Assign attribute if one was selected
 			if (attr != 'None') {
-				this.getById(ele_name).move({parent: attr}); // <------------ WHITESPACE ID ERROR HÄR
+				this.getById(ele_name).move({parent: attr});
 			}
 
 			this.updateAttributes();
@@ -52,7 +47,7 @@ class NgacDoc {
 	  var newEdge = cy.edges(
 	    '[source = "' + document.getElementById('sourcefield').placeholder + '"]' +
 	    '[target = "' + document.getElementById('targetfield').placeholder + '"]' +
-	    '[!name]'  // Find the edge without a name, this will be the new one
+	    '[!name]'  // The edge without a name will be the one we've added
 	  );
 
 		// TODO: Delete placed edge and alert if constraints aren't met
@@ -157,8 +152,9 @@ class NgacDoc {
 		targetfield.placeholder = target;
 	}
 
-	// To avoid cytoscape api and whitespace errors
+	// To avoid cytoscape api and id whitespace error
 	getById(id){
 		return cy.$("[id='" + id + "']");
 	}
+
 }
