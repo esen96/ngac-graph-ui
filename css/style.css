@@ -44,24 +44,20 @@ body {
   background: #0096FF;
 }
 
-#buttons #draw-off:hover{
+#buttons #new-edge:hover{
   color: black;
-  background: #0096FF;
+  background: yellow;
 }
 
-#buttons #draw-on:hover{
+#buttons #new-node:hover{
   color: black;
-  background: #FF3131;
-}
-
-#buttons #add-node:hover{
-  color: black;
-  background: #32CD32;
+  background: #49fb35;
 }
 
 #buttons #delete-element:hover{
   color: black;
-  background: yellow;
+  background: #FF3131;
+
 }
 
 .add-menu{

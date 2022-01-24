@@ -39,36 +39,18 @@ class NgacDoc {
 	}
 
 	// Control NGAC constraints before allowing placed edge (incomplete)
-	controlEdge() {
+	addEdge() {
+		var source = document.getElementById('sourcefield').value;
+		var target = document.getElementById('targetfield').value;
+		var relation = document.getElementById('relationfield').value;
 
-	  var newEdge = this.getLatestEdge();
-
-		// TODO: Delete placed edge and alert if constraints aren't met
-		var edgeName = document.getElementById('relationfield').value;
-	  newEdge.data('name', edgeName);
-		newEdge.addClass('edgelabel');
+		cy.add({
+			group: 'edges',
+			data: { name: relation, source: source, target: target },
+			classes: 'edgelabel'
+		});
 
 		this.edgePrompt(false);
-	}
-
-	// Return the latest added edge (for constraint checking/revocation)
-	getLatestEdge(){
-	  var latestEdge = cy.edges(
-	    '[source = "' + document.getElementById('sourcefield').placeholder + '"]' +
-	    '[target = "' + document.getElementById('targetfield').placeholder + '"]' +
-	    '[!name]'  // The edge without a name will be newly added
-	  );
-		return latestEdge;
-	}
-
-	// Toggles draw- and pan mode buttons
-	displayDrawMode(bool) {
-		if (this.#drawMode != bool) {
-			this.#drawMode = !this.#drawMode;
-			$('#draw-on').toggleClass('drawon');
-			$('#draw-off').toggleClass('drawoff');
-			return true; // Overlay fix to extension bug
-		}
 	}
 
 	renderLayout(){
@@ -144,6 +126,7 @@ class NgacDoc {
 		var prompt = document.getElementById('add-element');
 		this.promptOverlay(bool);
 		if (bool) {
+			this.loadAttributes();
 			prompt.style.display = "block";
 		} else {
 			prompt.style.display = "none";
@@ -151,11 +134,11 @@ class NgacDoc {
 	}
 
 	// Toggle prompt for adding new edge
-	edgePrompt(bool, source, target){
+	edgePrompt(bool){
 		var prompt = document.getElementById('add-relation');
 		this.promptOverlay(bool);
 		if (bool) {
-			this.loadEdgeData(source, target);
+			this.loadTargets();
 			prompt.style.display = "block";
 		} else {
 			prompt.style.display = "none";
@@ -163,28 +146,37 @@ class NgacDoc {
 	}
 
 	// Load target & source data to edge prompt fields
-	loadEdgeData(source, target){
+	loadTargets(){
 		var sourcefield = document.getElementById('sourcefield');
 		var targetfield = document.getElementById('targetfield');
-		sourcefield.placeholder = source;
-		targetfield.placeholder = target;
+		$("#sourcefield").empty();
+		$("#targetfield").empty();
+		cy.nodes().forEach(function( ele ){
+
+			if (ele.hasClass('attribute'))
+			{
+
+				var option = document.createElement('option');
+				var name = ele.data('name');
+				option.text = name;
+
+				if (ele.hasClass('User'))
+				{
+					sourcefield.add(option);
+				}
+
+				else if (ele.hasClass('Object'))
+				{
+					targetfield.add(option);
+				}
+
+			}
+		});
 	}
 
 	// To avoid api and cytoscape id whitespace error
 	getById(id){
 		return cy.$("[id='" + id + "']");
-	}
-
-	// When user closes the add node prompt
-	cancelNewNode(){
-		this.nodePrompt(false);
-	}
-
-	// When user closes the add edge prompt
-	cancelNewEdge(){
-		var latestEdge = this.getLatestEdge();
-		latestEdge.remove();
-		this.edgePrompt(false);
 	}
 
 }

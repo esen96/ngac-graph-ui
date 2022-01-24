@@ -61,7 +61,6 @@
             {
               selector: '.attribute:childless',
               style: {
-                'shape': 'rectangle',
                 'background-color' : '#DCDCDC',
                 'border-color' : '#D3D3D3',
                 'border-width' : '1px',
@@ -79,58 +78,31 @@
               }
             },
 
-            // some style for the extension
             {
-              selector: '.eh-handle',
+              selector: '.attribute',
               style: {
-                'background-color': 'red',
-                'width': 12,
-                'height': 12,
-                'shape': 'ellipse',
-                'overlay-opacity': 0,
-                'border-width': 12, // makes the handle easier to hit
-                'border-opacity': 0
+                'shape': 'round-rectangle',
+                'border-width': '2px',
+                'border-style' : 'solid'
               }
             },
 
             {
-              selector: '.eh-hover',
+              selector: '.attribute.Object',
               style: {
-                'background-color': 'red'
+                'border-color' : '#ED2939'
               }
             },
 
             {
-              selector: '.eh-source',
+              selector: '.attribute.User',
               style: {
-                'border-width': 2,
-                'border-color': 'red'
-              }
-            },
-
-            {
-              selector: '.eh-target',
-              style: {
-                'border-width': 2,
-                'border-color': 'red'
-              }
-            },
-
-            {
-              selector: '.eh-preview, .eh-ghost-edge',
-              style: {
-                'background-color': 'red',
-                'line-color': 'red',
-                'target-arrow-color': 'red',
-                'source-arrow-color': 'red'
-              }
-            },
-            {
-              selector: '.eh-ghost-edge.eh-preview-active',
-              style: {
-                'opacity': 0
+                'border-color' : '#318CE7'
               }
             }
+
+
+
           ],
           elements: {
             nodes: [
@@ -156,43 +128,28 @@
               { data: { id: 'Birger', name: 'Birger', parent: 'Team' }, classes: 'User' }
             ],
             edges: [
-              { data: { name: 'Write', source: 'Jesper', target: 'Fellowship of the ring' }, classes: 'edgelabel' },
-              { data: { name: 'Read', source: 'Ilaman', target: 'The Two Towers' }, classes: 'edgelabel' },
-              { data: { name: 'Write', source: 'Birger', target: 'Secret Document' }, classes: 'edgelabel' },
-              { data: { name: 'Read', source: 'Emil', target: 'Return of the king' }, classes: 'edgelabel' }
+              { data: { name: 'Write', source: 'Team', target: 'Books' }, classes: 'edgelabel' },
+              { data: { name: 'Read', source: 'Team', target: 'Documents' }, classes: 'edgelabel' },
+              { data: { name: 'Write', source: 'Team', target: 'Lord of the rings' }, classes: 'edgelabel' }
             ]
           }
         });
 
 
-
-        var eh = cy.edgehandles({
-        });
-
-
-        document.querySelector('#draw-on').addEventListener('click', function() {
-          if (ngacJS.displayDrawMode(true)) {
-            eh.enableDrawMode();
-          }
-        });
-
-        document.querySelector('#draw-off').addEventListener('click', function() {
-          if (ngacJS.displayDrawMode(false)) {
-            eh.disableDrawMode();
-          }
+        document.querySelector('#new-edge').addEventListener('click', function() {
+          ngacJS.edgePrompt(true);
         });
 
         document.querySelector('#delete-element').addEventListener('click', function() {
           ngacJS.deleteElement();
         });
 
-        document.querySelector('#add-node').addEventListener('click', function() {
-          ngacJS.loadAttributes();
+        document.querySelector('#new-node').addEventListener('click', function() {
           ngacJS.nodePrompt(true);
         });
 
         document.querySelector('#add-edge').addEventListener('click', function() {
-          ngacJS.controlEdge();
+          ngacJS.addEdge();
         });
 
         document.querySelector('#typefield').addEventListener('change', function() {
@@ -200,25 +157,20 @@
         });
 
         document.querySelector('#node-prompt-close').addEventListener('click', function() {
-          ngacJS.cancelNewNode();
+          ngacJS.nodePrompt(false);
         });
 
         document.querySelector('#edge-prompt-close').addEventListener('click', function() {
-          ngacJS.cancelNewEdge();
+          ngacJS.edgePrompt(false);
         });
 
         cy.panzoom({
 					// options here...
 				});
 
-        ngacJS.loadAttributes();
+        ngacJS.loadAttributes(); // Since event is onChange
 
       });
-
-      // Added due to function call from extension file
-      function edgePrompt(bool, source, target){
-        ngacJS.edgePrompt(bool, source, target);
-      }
 
     </script>
   </head>
@@ -229,10 +181,8 @@
 
     <div id="buttons" class="cy-panzoom">
 
-      <button id="draw-off" class="drawoff"><i class="fas fa-expand-arrows-alt"></i></button>
-      <button id="draw-on"><i class="fas fa-draw-polygon"></i></button>
-
-      <button id="add-node"><i class="fas fa-plus"></i></button>
+      <button id="new-node"><i class="fas fa-plus"></i></button>
+      <button id="new-edge"><i class="fas fa-draw-polygon"></i></button>
       <button id="delete-element"><i class="fas fa-trash-alt"></i></button>
 
     </div>
@@ -298,17 +248,17 @@
 
         <h2>New relation</h2>
 
-        <fieldset disabled>
-          <div class="mb-3">
-            <label for="sourcefield" class="form-label">Source</label>
-            <input type="text" id="sourcefield" class="form-control">
-          </div>
+        <div class="mb-3">
+          <label for="sourcefield" class="form-label">Source</label>
+          <select class="form-select" id="sourcefield" aria-label="Default select example">
+          </select>
+        </div>
 
-          <div class="mb-3">
-            <label for="targetfield" class="form-label">Target</label>
-            <input type="text" id="targetfield" class="form-control">
-          </div>
-        </fieldset>
+        <div class="mb-3">
+          <label for="targetfield" class="form-label">Target</label>
+          <select class="form-select" id="targetfield" aria-label="Default select example">
+          </select>
+        </div>
 
         <div class="mb-3">
           <label for="relationfield" class="form-label">Access privilege</label>
