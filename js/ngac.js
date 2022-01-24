@@ -6,7 +6,6 @@ class NgacDoc {
 		this.#drawMode = false;
 	}
 
-	// Add graph node
 	addNode() {
 
 		var ele_name = document.getElementById('namefield').value;
@@ -38,7 +37,6 @@ class NgacDoc {
 		element.remove();
 	}
 
-	// Control NGAC constraints before allowing placed edge (incomplete)
 	addEdge() {
 		var source = document.getElementById('sourcefield').value;
 		var target = document.getElementById('targetfield').value;
@@ -153,20 +151,13 @@ class NgacDoc {
 		$("#targetfield").empty();
 		cy.nodes().forEach(function( ele ){
 
-			if (ele.hasClass('attribute'))
-			{
-
+			if (ele.hasClass('attribute')){
 				var option = document.createElement('option');
 				var name = ele.data('name');
 				option.text = name;
-
-				if (ele.hasClass('User'))
-				{
+				if (ele.hasClass('User')) {
 					sourcefield.add(option);
-				}
-
-				else if (ele.hasClass('Object'))
-				{
+				} else if (ele.hasClass('Object')) {
 					targetfield.add(option);
 				}
 
