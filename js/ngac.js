@@ -51,9 +51,8 @@ class NgacDoc {
 		this.edgePrompt(false);
 	}
 
-	// Return the latest edge (for constraint checking)
+	// Return the latest added edge (for constraint checking/revocation)
 	getLatestEdge(){
-		// Identify newly added edge
 	  var latestEdge = cy.edges(
 	    '[source = "' + document.getElementById('sourcefield').placeholder + '"]' +
 	    '[target = "' + document.getElementById('targetfield').placeholder + '"]' +
@@ -85,7 +84,6 @@ class NgacDoc {
 	}
 
 	// Load all parents to the attribute field in add element prompt
-	// TODO: Read type select field and only give viable attributes
 	loadAttributes(){
 		var attrfield = document.getElementById('attributefield');
 		this.clearAttrField(attrfield);
@@ -117,14 +115,6 @@ class NgacDoc {
 		none.text = 'None';
 		attrfield.add(none);
 	}
-
-	/*
-	User to user attributes
-	Object to object attributes
-	Object attributes to object attributes
-	User attributes to user attributes
-	*/
-
 
 	// Check if name is taken by another user/object
 	nameTaken(name){
