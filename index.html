@@ -199,6 +199,14 @@
           ngacJS.loadAttributes();
         });
 
+        document.querySelector('#node-prompt-close').addEventListener('click', function() {
+          ngacJS.cancelNewNode();
+        });
+
+        document.querySelector('#edge-prompt-close').addEventListener('click', function() {
+          ngacJS.cancelNewEdge();
+        });
+
         cy.panzoom({
 					// options here...
 				});
@@ -238,7 +246,7 @@
       <div id="add-element" class="add-element" style="display: none;">
 
         <div class="close-button">
-          <button type="button" class="btn-close" aria-label="Close"></button>
+          <button type="button" id="node-prompt-close" class="btn-close" aria-label="Close"></button>
         </div>
 
         <h2>New element</h2>
@@ -285,7 +293,7 @@
       <div id="add-relation" class="add-relation" style="display: none;">
 
         <div class="close-button">
-          <button type="button" class="btn-close" aria-label="Close"></button>
+          <button type="button" id="edge-prompt-close" class="btn-close" aria-label="Close"></button>
         </div>
 
         <h2>New relation</h2>

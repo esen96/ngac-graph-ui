@@ -41,12 +41,7 @@ class NgacDoc {
 	// Control NGAC constraints before allowing placed edge (incomplete)
 	controlEdge() {
 
-	  // Identify newly added edge
-	  var newEdge = cy.edges(
-	    '[source = "' + document.getElementById('sourcefield').placeholder + '"]' +
-	    '[target = "' + document.getElementById('targetfield').placeholder + '"]' +
-	    '[!name]'  // The edge without a name will be newly added
-	  );
+	  var newEdge = this.getLatestEdge();
 
 		// TODO: Delete placed edge and alert if constraints aren't met
 		var edgeName = document.getElementById('relationfield').value;
@@ -54,7 +49,17 @@ class NgacDoc {
 		newEdge.addClass('edgelabel');
 
 		this.edgePrompt(false);
+	}
 
+	// Return the latest edge (for constraint checking)
+	getLatestEdge(){
+		// Identify newly added edge
+	  var latestEdge = cy.edges(
+	    '[source = "' + document.getElementById('sourcefield').placeholder + '"]' +
+	    '[target = "' + document.getElementById('targetfield').placeholder + '"]' +
+	    '[!name]'  // The edge without a name will be newly added
+	  );
+		return latestEdge;
 	}
 
 	// Toggles draw- and pan mode buttons
@@ -178,6 +183,18 @@ class NgacDoc {
 	// To avoid api and cytoscape id whitespace error
 	getById(id){
 		return cy.$("[id='" + id + "']");
+	}
+
+	// When user closes the add node prompt
+	cancelNewNode(){
+		this.nodePrompt(false);
+	}
+
+	// When user closes the add edge prompt
+	cancelNewEdge(){
+		var latestEdge = this.getLatestEdge();
+		latestEdge.remove();
+		this.edgePrompt(false);
 	}
 
 }
