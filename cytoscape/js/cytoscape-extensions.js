@@ -711,19 +711,19 @@ var defaults = {
   // - "proof" slow cooling rate
   quality: 'default',
   // include labels in node dimensions
-  nodeDimensionsIncludeLabels: false,
+  nodeDimensionsIncludeLabels: true,
   // number of ticks per frame; higher is faster but more jerky
   refresh: 30,
   // Whether to fit the network view after when done
   fit: true,
   // Padding on fit
-  padding: 60,
+  padding: 10,
   // Whether to enable incremental mode
   randomize: true,
   // Node repulsion (non overlapping) multiplier
   nodeRepulsion: 4500,
   // Ideal edge (non nested) length
-  idealEdgeLength: 50,
+  idealEdgeLength: 100,
   // Divisor to compute edge forces
   edgeElasticity: 0.45,
   // Nesting factor (multiplier) to compute ideal edge length for nested edges
