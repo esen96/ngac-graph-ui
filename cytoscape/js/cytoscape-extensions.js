@@ -745,9 +745,9 @@ var defaults = {
   // Gravity range (constant) for compounds
   gravityRangeCompound: 1.5,
   // Gravity force (constant) for compounds
-  gravityCompound: 1.0,
+  gravityCompound: 10.0,
   // Gravity range (constant)
-  gravityRange: 3.8,
+  gravityRange: 1.5,
   // Initial cooling factor for incremental layout
   initialEnergyOnIncremental: 0.5
 };

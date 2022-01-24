@@ -49,6 +49,7 @@ class NgacDoc {
 		});
 
 		this.edgePrompt(false);
+		this.renderLayout();
 	}
 
 	renderLayout(){
