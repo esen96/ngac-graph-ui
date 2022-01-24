@@ -27,7 +27,6 @@ class NgacDoc {
 				this.getById(ele_name).move({parent: attr});
 			}
 
-			this.updateAttributes();
 			this.nodePrompt(false);
 			this.renderLayout();
 		}
@@ -37,7 +36,6 @@ class NgacDoc {
 	deleteElement() {
 		var element = cy.$(':selected');
 		element.remove();
-		this.updateAttributes();
 	}
 
 	// Control NGAC constraints before allowing placed edge (incomplete)
@@ -82,14 +80,14 @@ class NgacDoc {
 	}
 
 	// Load all parents to the attribute field in add element prompt
-	updateAttributes(){
-		$("#attributefield").empty();
+	// TODO: Read type select field and only give viable attributes
+	loadAttributes(){
 		var attrfield = document.getElementById('attributefield');
-		var none = document.createElement('option');
-		none.text = 'None';
-		attrfield.add(none);
+		this.clearAttrField(attrfield);
+		var fieldText = $('#typefield').find(":selected").text();
+		var baseType = this.filterBaseType(fieldText);
 		cy.nodes().forEach(function( ele ){
-			if (ele.hasClass('attribute')) {
+			if (ele.hasClass('attribute') && ele.hasClass(baseType)) {
 				var option = document.createElement('option');
 				var name = ele.data('name');
 				option.text = name;
@@ -97,6 +95,31 @@ class NgacDoc {
 			}
 		});
 	}
+
+	// Filter base type (User/Object) from typefield text
+	filterBaseType(typefield){
+		if (typefield.includes('Object')){
+			return 'Object';
+		} else if (typefield.includes('User')) {
+			return 'User';
+		}
+	}
+
+	// Clear typefield text and add None option
+	clearAttrField(attrfield){
+		$("#attributefield").empty();
+		var none = document.createElement('option');
+		none.text = 'None';
+		attrfield.add(none);
+	}
+
+	/*
+	User to user attributes
+	Object to object attributes
+	Object attributes to object attributes
+	User attributes to user attributes
+	*/
+
 
 	// Check if name is taken by another user/object
 	nameTaken(name){

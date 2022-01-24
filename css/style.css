@@ -79,6 +79,10 @@ body {
   transition: 0.3s;
 }
 
+.close-button{
+  float: right;
+}
+
 .add-element, .add-relation{
   min-width: 300px;
   padding: 20px;
@@ -90,6 +94,7 @@ body {
 
 .add-menu h2{
   margin: 5%;
+  padding-top: 30px;
   text-align: center;
 }
 

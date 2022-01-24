@@ -139,7 +139,7 @@
               { data: { id: 'Books', name: 'Books' }, classes: 'Object attribute' },
 
               { data: { id: 'Documents', name: 'Documents' }, classes: 'Object attribute'  },
-              { data: { id: 'Team', name: 'Team' }, classes: 'Object attribute'  },
+              { data: { id: 'Team', name: 'Team' }, classes: 'User attribute'  },
               { data: { id: 'Lord of the rings', name: 'Lord of the rings', parent: 'Books' }, classes: 'Object attribute'  },
 
               // Objects
@@ -187,6 +187,7 @@
         });
 
         document.querySelector('#add-node').addEventListener('click', function() {
+          ngacJS.loadAttributes();
           ngacJS.nodePrompt(true);
         });
 
@@ -194,15 +195,19 @@
           ngacJS.controlEdge();
         });
 
+        document.querySelector('#typefield').addEventListener('change', function() {
+          ngacJS.loadAttributes();
+        });
+
         cy.panzoom({
 					// options here...
 				});
 
-        ngacJS.updateAttributes();
+        ngacJS.loadAttributes();
 
       });
 
-      // Function added due to constraint call from extension file
+      // Added due to function call from extension file
       function edgePrompt(bool, source, target){
         ngacJS.edgePrompt(bool, source, target);
       }
@@ -232,20 +237,16 @@
       <!-- Add element prompt div -->
       <div id="add-element" class="add-element" style="display: none;">
 
-        <h2>New element</h2>
+        <div class="close-button">
+          <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
 
+        <h2>New element</h2>
 
 
         <div class="mb-3">
           <label for="namefield" class="form-label">Name</label>
           <input type="text" class="form-control" id="namefield" aria-describedby="emailHelp" required>
-        </div>
-
-        <div class="mb-3">
-          <label for="attributefield" class="form-label">Attribute</label>
-          <select class="form-select" id="attributefield" aria-label="Default select example">
-            <option selected>None</option>
-          </select>
         </div>
 
         <div class="mb-3">
@@ -256,6 +257,13 @@
             <option>User attribute</option>
             <option>Object attribute</option>
             <option>Policy class</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="attributefield" class="form-label">Attribute</label>
+          <select class="form-select" id="attributefield" aria-label="Default select example">
+            <option selected>None</option>
           </select>
         </div>
 
@@ -275,6 +283,10 @@
 
       <!-- Add relation prompt div -->
       <div id="add-relation" class="add-relation" style="display: none;">
+
+        <div class="close-button">
+          <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
 
         <h2>New relation</h2>
 
