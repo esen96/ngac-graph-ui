@@ -57,7 +57,16 @@ body {
 #buttons #delete-element:hover{
   color: black;
   background: #FF3131;
+}
 
+#buttons #layout{
+  font-size: 35px;
+  height: 60px;
+}
+
+#buttons #layout:hover{
+  color: black;
+  background: #0096FF;
 }
 
 .add-menu{

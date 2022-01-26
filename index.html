@@ -165,6 +165,10 @@
           ngacJS.edgePrompt(false);
         });
 
+        document.querySelector('#layout').addEventListener('click', function() {
+          ngacJS.renderLayout();
+        });
+
         cy.panzoom({
 					// options here...
 				});
@@ -187,9 +191,18 @@
 
     <div id="buttons" class="cy-panzoom">
 
-      <button id="new-node"><i class="fas fa-plus"></i></button>
-      <button id="new-edge"><i class="fas fa-draw-polygon"></i></button>
-      <button id="delete-element"><i class="fas fa-trash-alt"></i></button>
+      <button id="new-node" title="Add a new element">
+        <i class="fas fa-plus"></i>
+      </button>
+      <button id="new-edge" title="Add a new relation">
+        <i class="fas fa-draw-polygon"></i>
+      </button>
+      <button id="delete-element" title="Delete selected element">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+      <button id="layout" title="Optimize layout">
+        <i class="fas fa-bezier-curve"></i>
+      </button>
 
     </div>
 

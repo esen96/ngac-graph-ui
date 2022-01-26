@@ -14,20 +14,30 @@ class NgacDoc {
 			var attr = document.getElementById('attributefield').value;
 			var type = document.getElementById('typefield').value;
 
-			cy.add({
-				group: 'nodes',
-				data: { id: ele_name, name: ele_name },
-				classes: type
-			});
-
-			// Assign to attribute if one was selected
-			if (attr != 'None') {
-				this.getById(ele_name).move({parent: attr});
-			}
-			
 			this.nodePrompt(false);
-			this.renderLayout();
+
+			this.placeNode(ele_name, type, attr);
+
 		}
+	}
+
+	// User is in new node placement mode
+	placeNode(id, type, attr) {
+		document.body.style.cursor='crosshair';
+		// Register one time click event to place new node
+		cy.one("tap", function(e) {
+		    cy.add({
+		        group: "nodes",
+		        data: { id: id, name: id, parent: attr },
+		        renderedPosition: {
+		            x: e.renderedPosition.x,
+		            y: e.renderedPosition.y,
+						},
+						classes: type
+					});
+					document.body.style.cursor='auto';
+		});
+
 	}
 
 	// Delete selected graph element
@@ -48,7 +58,7 @@ class NgacDoc {
 		});
 
 		this.edgePrompt(false);
-		this.renderLayout();
+
 	}
 
 	renderLayout(){
