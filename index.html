@@ -3,7 +3,7 @@
 <html>
 
   <head>
-    <title>NGAC policy tool</title>
+    <title>NGAC Policy Tool</title>
 
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
@@ -17,6 +17,7 @@
     <script src="cytoscape/js/cytoscape.min.js"></script>
 		<script src="cytoscape/js/cytoscape-extensions.js"></script>
     <script src="js/ngac.js"></script>
+    <script src="js/filehandler.js"></script>
 
 
     <script>
@@ -168,7 +169,7 @@
 					// options here...
 				});
 
-        ngacJS.loadAttributes(); // Since event is onChange
+        ngacJS.loadAttributes(); // First iteration since event is onChange
 
       });
 
@@ -176,6 +177,11 @@
   </head>
 
   <body>
+
+
+    <div class="header">
+      <h1>NGAC Policy Tool</h1>
+    </div>
 
     <div id="cy"></div>
 
@@ -230,7 +236,7 @@
         </div>
 
         <div class="ngac-bottom-tag">
-          <h1>NGAC policy tool</h1>
+          <h1>NGAC Policy Tool</h1>
         </div>
 
 
@@ -273,7 +279,7 @@
         </div>
 
         <div class="ngac-bottom-tag">
-          <h1>NGAC policy tool</h1>
+          <h1>NGAC Policy Tool</h1>
         </div>
 
       </div>

@@ -7,7 +7,6 @@ class NgacDoc {
 	}
 
 	addNode() {
-
 		var ele_name = document.getElementById('namefield').value;
 		if (this.nameTaken(ele_name)) {
 			window.alert('Name is already taken');
@@ -25,7 +24,7 @@ class NgacDoc {
 			if (attr != 'None') {
 				this.getById(ele_name).move({parent: attr});
 			}
-
+			
 			this.nodePrompt(false);
 			this.renderLayout();
 		}

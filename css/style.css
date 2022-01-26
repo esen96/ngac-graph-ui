@@ -6,8 +6,8 @@ body {
 #cy {
   position: absolute;
   left: 0;
-  top: 0;
   bottom: 0;
+  top: 0;
   right: 0;
   z-index: 999;
 }
@@ -120,4 +120,17 @@ body {
 	background: #FFF;
 	width: 100%;
 	z-index: 99999;
+}
+
+.header {
+  padding: 25px;
+  text-align: center;
+  color: black;
+}
+
+.header h1{
+  font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
+  opacity: 0.5;
+  font-weight: bold;
+  font-size: 30px;
 }
