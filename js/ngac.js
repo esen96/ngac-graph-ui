@@ -22,13 +22,14 @@ class NgacDoc {
 	}
 
 	// User is in new node placement mode
-	placeNode(id, type, attr) {
+	placeNode(name, type, attr) {
+		var nodeData = (type.includes('attribute')) ? { id: name, name: name, parent: attr } : { name: name, parent: attr };
 		document.body.style.cursor='crosshair';
 		// Register one time click event to place new node
 		cy.one("tap", function(e) {
 		    cy.add({
 		        group: "nodes",
-		        data: { id: id, name: id, parent: attr },
+		        data: nodeData,
 		        renderedPosition: {
 		            x: e.renderedPosition.x,
 		            y: e.renderedPosition.y,

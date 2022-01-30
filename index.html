@@ -108,26 +108,26 @@
           elements: {
             nodes: [
 
-              // Categories
+              // Attributes
               { data: { id: 'Books', name: 'Books' }, classes: 'Object attribute' },
-
               { data: { id: 'Documents', name: 'Documents' }, classes: 'Object attribute'  },
               { data: { id: 'Team', name: 'Team' }, classes: 'User attribute'  },
               { data: { id: 'Lord of the rings', name: 'Lord of the rings', parent: 'Books' }, classes: 'Object attribute'  },
 
               // Objects
-              { data: { id: 'The Hobbit', name: 'The Hobbit', parent: 'Books' }, classes: 'Object' },
-              { data: { id: 'Fellowship of the ring', name: 'Fellowship of the ring', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { id: 'The Two Towers', name: 'The Two Towers', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { id: 'Return of the king', name: 'Return of the king', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { id: 'Secret Document', name: 'Secret Document', parent: 'Documents' }, classes: 'Object' },
+              { data: { name: 'The Hobbit', parent: 'Books' }, classes: 'Object' },
+              { data: { name: 'Fellowship of the ring', parent: 'Lord of the rings' }, classes: 'Object' },
+              { data: { name: 'The Two Towers', parent: 'Lord of the rings' }, classes: 'Object' },
+              { data: { name: 'Return of the king', parent: 'Lord of the rings' }, classes: 'Object' },
+              { data: { name: 'Secret Document', parent: 'Documents' }, classes: 'Object' },
 
-              // Subjects
-              { data: { id: 'Ilaman', name: 'Ilaman', parent: 'Team' }, classes: 'User' },
-              { data: { id: 'Jesper', name: 'Jesper', parent: 'Team' }, classes: 'User' },
-              { data: { id: 'Emil', name: 'Emil', parent: 'Team' }, classes: 'User' },
-              { data: { id: 'Birger', name: 'Birger', parent: 'Team' }, classes: 'User' }
+              // Users
+              { data: { name: 'Ilaman', parent: 'Team' }, classes: 'User' },
+              { data: { name: 'Jesper', parent: 'Team' }, classes: 'User' },
+              { data: { name: 'Emil', parent: 'Team' }, classes: 'User' },
+              { data: { name: 'Birger', parent: 'Team' }, classes: 'User' }
             ],
+              // Associations
             edges: [
               { data: { name: 'Write', source: 'Team', target: 'Books' }, classes: 'edgelabel' },
               { data: { name: 'Read', source: 'Team', target: 'Documents' }, classes: 'edgelabel' },
