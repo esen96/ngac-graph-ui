@@ -16,7 +16,7 @@ class FileHandler {
             var filteredString = lineArray[i].replace(/\W/g, ' ');
             var cmds = filteredString.split(' ');
             var filteredCmds = cmds.filter(function(str) { return /\S/.test(str);});
-
+            console.log(filteredCmds);
             switch (filteredCmds[0]) {
               case 'user':
                 newGraph.push({ group: 'nodes', data: { name: filteredCmds[1] }, classes: 'User' });
@@ -40,13 +40,10 @@ class FileHandler {
                 newGraph.push({ group: 'nodes', data: { id: nameid, name: nameid }, classes: 'Object attribute'  });
                 break;
               case 'associate':
-                var access;
-                if (filteredCmds[2] == 'r') {
-                  access = 'Read';
-                } else if (filteredCmds[2] == 'w') {
-                  access = 'Write';
+                var final = filteredCmds.length - 1;
+                for (var j = 2; j < final; j++) {
+                  newGraph.push({ data: { name: filteredCmds[j], source: filteredCmds[1], target: filteredCmds[final] }, classes: 'edgelabel' });
                 }
-                newGraph.push({ data: { name: access, source: filteredCmds[1], target: filteredCmds[3] }, classes: 'edgelabel' });
                 break;
             }
           }
