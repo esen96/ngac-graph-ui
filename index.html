@@ -169,6 +169,10 @@
           ngacJS.renderLayout();
         });
 
+        document.querySelector('#inputfile').addEventListener('change', function() {
+          ngacJS.loadFile();
+        });
+
         cy.panzoom({
 					// options here...
 				});
@@ -205,6 +209,11 @@
       </button>
 
     </div>
+
+    <div class="filetest">
+      <input type="file" id="inputfile">
+    </div>
+
 
     <div id="prompt-overlay"></div>
 

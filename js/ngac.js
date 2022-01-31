@@ -1,9 +1,9 @@
 class NgacDoc {
 
-	#drawMode;
+	fileHandler;
 
 	constructor() {
-		this.#drawMode = false;
+		this.fileHandler = new FileHandler();
 	}
 
 	addNode() {
@@ -179,6 +179,10 @@ class NgacDoc {
 	// To avoid api and cytoscape id whitespace error
 	getById(id){
 		return cy.$("[id='" + id + "']");
+	}
+
+	loadFile(){
+		this.fileHandler.load();
 	}
 
 }
