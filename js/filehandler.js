@@ -16,7 +16,6 @@ class FileHandler {
             var filteredString = lineArray[i].replace(/\W/g, ' ');
             var cmds = filteredString.split(' ');
             var filteredCmds = cmds.filter(function(str) { return /\S/.test(str);});
-            console.log(filteredCmds);
             switch (filteredCmds[0]) {
               case 'user':
                 newGraph.push({ group: 'nodes', data: { name: filteredCmds[1] }, classes: 'User' });
@@ -26,6 +25,7 @@ class FileHandler {
                 newGraph.push({ group: 'nodes', data: { id: nameid, name: nameid }, classes: 'User attribute'  });
                 break;
               case 'assign':
+              // Todo: handle assign when user already has parent
                 for (let i in newGraph) {
                   if (newGraph[i].data.name == filteredCmds[1]) {
                     newGraph[i].data.parent = filteredCmds[2];
