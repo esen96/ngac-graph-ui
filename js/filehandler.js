@@ -25,10 +25,14 @@ class FileHandler {
                 newGraph.push({ group: 'nodes', data: { id: nameid, name: nameid }, classes: 'User attribute'  });
                 break;
               case 'assign':
-              // Todo: handle assign when user already has parent
                 for (let i in newGraph) {
                   if (newGraph[i].data.name == filteredCmds[1]) {
-                    newGraph[i].data.parent = filteredCmds[2];
+                    var type = newGraph[i].classes;
+                    if (!newGraph[i].data.parent) {
+                      newGraph[i].data.parent = filteredCmds[2];
+                    } else {
+                      newGraph.push({ group: 'nodes', data: { name: filteredCmds[1], parent: filteredCmds[2] }, classes: type });
+                    }
                   }
                 }
                 break;
