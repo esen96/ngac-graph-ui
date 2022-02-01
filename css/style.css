@@ -148,3 +148,12 @@ body {
   position: fixed;
   z-index: 99999;
 }
+
+.retrive_data_button{
+  position: fixed;
+  margin-top: 8rem;
+  margin-bottom: 8rem;
+	color: #fff;
+	color: #666;
+	z-index: 99999;
+}

@@ -2,8 +2,11 @@ class NgacDoc {
 
 	fileHandler;
 
+	graph_data_retrieval;
+
 	constructor() {
 		this.fileHandler = new FileHandler();
+		this.graph_data_retrieval = new Graph_data_retrieval();
 	}
 
 	addNode() {
@@ -183,6 +186,11 @@ class NgacDoc {
 
 	loadFile(){
 		this.fileHandler.load();
+	}
+
+	retrive_data()
+	{
+		this.graph_data_retrieval.get_data();
 	}
 
 }
