@@ -6,10 +6,6 @@ class Graph_data_retrieval
         var nodes = cy.json().elements.nodes;
         var edges = cy.json().elements.edges;
 
-        var users = this.find_nodes(nodes, "User");
-
-        var objects = this.find_nodes(nodes, "Object");
-
         var user_attributes = this.find_nodes(nodes, "User attribute");
 
         var object_attributes = this.find_nodes(nodes, "Object attribute");
@@ -18,39 +14,54 @@ class Graph_data_retrieval
 
         var object_attributes_conns = this.find_nodes_with_conn(nodes, "Object");
 
-        var attribute_conns = Object.assign({},this.find_nodes_with_conn(nodes, "User attribute"), (this.find_nodes_with_conn(nodes, "Object attribute")) );
+        var attribute_conns = Object.assign({},this.find_nodes_conn(nodes, "User attribute"), (this.find_nodes_conn(nodes, "Object attribute")) );
         
         var associations = this.find_edges(edges);
 
-        /*
-        console.log(users);
-        console.log(objects);
         console.log(user_attributes);
         console.log(object_attributes);
         console.log(user_attributes_conns);
         console.log(object_attributes_conns);
         console.log(attribute_conns);
         console.log(associations);
-        */
 
-        $.ajax({
-            data: {
-                users:users,
-                objects:objects,
-                user_attributes:user_attributes,
-                object_attributes:object_attributes,
-                user_attributes_conns:user_attributes_conns,
-                object_attributes_conns:object_attributes_conns,
-                attribute_conns:attribute_conns,
-                associations:associations
-            },
-            type: "post",
-            url: "../AddPolicy/save_graph_to_DB.php",
-            success: function(data){
-                alert(data);
-            }
-        });
+        let policy = prompt("Please enter the policy's name:", "");
+        if (policy != null && policy != "") {
+            $("#Loader").show();
+            window.setTimeout( function(){
+                $.ajax({
+                
+                    data: {
+                        policy:policy,
+                        user_attributes:user_attributes,
+                        object_attributes:object_attributes,
+                        user_attributes_conns:user_attributes_conns,
+                        object_attributes_conns:object_attributes_conns,
+                        attribute_conns:attribute_conns,
+                        associations:associations
+                    },
+                    type: "post",
+                    url: "../AddPolicy/save_graph_to_DB.php",
+                    
+                    success: function(data){
+                        
+                        $('#Loader').hide();
+                        alert(data);
+                    }
+                    
+                    
+    
+                });
+            }, 1000 );
+            
+        }
+        else
+        {
+            alert("Cancelled saving");
+        }
+        
     }
+    
 
     // finde nodes that match the classes string
     find_nodes(nodes_json, classes)
@@ -68,13 +79,38 @@ class Graph_data_retrieval
 
     find_nodes_with_conn(nodes_json, classes)
     {
-        var nodes = {};
+        var nodes = [];
+        var index = 0
         for(var i in nodes_json)
         {
             if(nodes_json[i].classes == classes)
             {
-                nodes[nodes_json[i].data.name] = nodes_json[i].data.parent;
+                nodes[index] = [nodes_json[i].data.name, nodes_json[i].data.parent];
+                index ++;
             }
+            
+        }
+        return nodes;
+    }
+
+    find_nodes_conn(nodes_json, classes)
+    {
+        var nodes = [];
+        for(var i in nodes_json)
+        {
+            if(nodes_json[i].classes == classes)
+            {
+                if(nodes_json[i].data.parent == null)
+                {
+                    nodes[nodes_json[i].data.name] = "NULL";
+                }
+                else
+                {
+                    nodes[nodes_json[i].data.name] = nodes_json[i].data.parent;
+                }
+                
+            }
+            
         }
         return nodes;
     }

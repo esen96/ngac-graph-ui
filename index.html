@@ -18,6 +18,7 @@
 		<script src="cytoscape/js/cytoscape-extensions.js"></script>
     <script src="js/ngac.js"></script>
     <script src="js/filehandler.js"></script>
+    <script src="js/db_handler.js"></script>
     <script src="js/graph_data_retrieval.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
@@ -30,6 +31,7 @@
 
         var cy = window.cy = cytoscape({
           container: document.getElementById('cy'),
+
 
           ready: function(){
             this.layout({name: 'cose-bilkent', animationDuration: 1000}).run();
@@ -106,39 +108,7 @@
 
 
 
-          ],
-          elements: {
-            nodes: [
-
-              // Attributes
-              { data: { id: 'Books', name: 'Books' }, classes: 'Object attribute' },
-              { data: { id: 'Documents', name: 'Documents' }, classes: 'Object attribute'  },
-              { data: { id: 'Team', name: 'Team' }, classes: 'User attribute'  },
-              { data: { id: 'Team2', name: 'Team2' }, classes: 'User attribute'  },
-              { data: { id: 'Lord of the rings', name: 'Lord of the rings', parent: 'Books' }, classes: 'Object attribute'  },
-
-              // Objects
-              { data: { name: 'The Hobbit', parent: 'Books' }, classes: 'Object' },
-              { data: { name: 'Fellowship of the ring', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { name: 'The Two Towers', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { name: 'Return of the king', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { name: 'Secret Document', parent: 'Documents' }, classes: 'Object' },
-
-              // Users
-              { data: { name: 'Ilaman', parent: 'Team' }, classes: 'User' },
-              { data: { name: 'Jesper', parent: 'Team' }, classes: 'User' },
-              { data: { name: 'Emil', parent: 'Team' }, classes: 'User' },
-              { data: { name: 'Birger', parent: 'Team' }, classes: 'User' }
-            ],
-              // Associations
-            edges: [
-              { data: { name: 'Write', source: 'Team', target: 'Books' }, classes: 'edgelabel' },
-              { data: { name: 'Read', source: 'Team', target: 'Documents' }, classes: 'edgelabel' },
-              { data: { name: 'Write', source: 'Team', target: 'Lord of the rings' }, classes: 'edgelabel' },
-              { data: { name: 'Read', source: 'Team', target: 'Lord of the rings' }, classes: 'edgelabel' },
-              { data: { name: 'Write', source: 'Team2', target: 'Documents' }, classes: 'edgelabel' },
-            ]
-          }
+          ]
         });
 
 
@@ -207,11 +177,14 @@
       <button id="new-node" title="Add a new element">
         <i class="fas fa-plus"></i>
       </button>
+      <button id="delete-element" title="Delete selected element">
+        <i class="fas fa-trash-alt"></i>
+      </button>
       <button id="new-edge" title="Add a new relation">
         <i class="fas fa-draw-polygon"></i>
       </button>
-      <button id="delete-element" title="Delete selected element">
-        <i class="fas fa-trash-alt"></i>
+      <button id="dbops" title="Database options">
+        <i class="fas fa-database"></i>
       </button>
       <button id="layout" title="Optimize layout">
         <i class="fas fa-bezier-curve"></i>
@@ -224,7 +197,13 @@
     </div>
 
     <div class="retrive_data_button">
-      <button id="get_data_from_graph" title="Data retrieval">Data retrieval</button>
+      <button id="get_data_from_graph" title="Save">Save graph policy</button>
+    </div>
+
+    <div id = "Loader">
+      <div id = "message">
+        Saving to DB...
+      </div>
     </div>
 
     <div id="prompt-overlay"></div>
