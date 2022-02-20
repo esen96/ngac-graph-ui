@@ -149,11 +149,6 @@ body {
   font-size: 30px;
 }
 
-.filetest{
-  position: fixed;
-  z-index: 99999;
-}
-
 .retrive_data_button{
   position: fixed;
   margin-top: 8rem;

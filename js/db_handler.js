@@ -4,11 +4,11 @@ class db_handler{
         cy.elements().remove(); // Clear graph
 
         var policy_txt = "";
-        
+
         $.ajax({//Retrive the policy from the database
           async: false,
           type: "POST",
-          url:  "/AdminPage/LoadPolicy/get_policy_backend.php", 
+          url:  "/AdminPage/LoadPolicy/get_policy_backend.php",
           data: {policy_name: policy_name
                 },
           dataType: "text",

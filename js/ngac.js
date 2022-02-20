@@ -1,13 +1,10 @@
 class NgacDoc {
 
-	fileHandler;
-
 	graph_data_retrieval;
 
 	db_handler;
 
 	constructor() {
-		this.fileHandler = new FileHandler();
 		this.graph_data_retrieval = new Graph_data_retrieval();
 		this.db_handler = new db_handler();
 	}
@@ -185,10 +182,6 @@ class NgacDoc {
 	// To avoid api and cytoscape id whitespace error
 	getById(id){
 		return cy.$("[id='" + id + "']");
-	}
-
-	loadFile(){
-		this.fileHandler.load();
 	}
 
 	retrive_data()
