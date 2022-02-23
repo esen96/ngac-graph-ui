@@ -1,11 +1,9 @@
 class Graph_data_retrieval
 {
-    translator;
 
     constructor() {
-      this.translator = new db_translator();
     }
-    
+
     get_data()
     {
         var nodes = cy.json().elements.nodes;
