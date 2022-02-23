@@ -1,6 +1,6 @@
 class db_handler{
 
-    load_via_db(policy_name){
+    load(policy_name){
         cy.elements().remove(); // Clear graph
 
         var policy_txt = "";

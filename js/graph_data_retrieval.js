@@ -1,5 +1,10 @@
 class Graph_data_retrieval
 {
+    translator;
+
+    constructor() {
+      this.translator = new db_translator();
+    }
     
     get_data()
     {
@@ -15,7 +20,7 @@ class Graph_data_retrieval
         var object_attributes_conns = this.find_nodes_with_conn(nodes, "Object");
 
         var attribute_conns = Object.assign({},this.find_nodes_conn(nodes, "User attribute"), (this.find_nodes_conn(nodes, "Object attribute")) );
-        
+
         var associations = this.find_edges(edges);
 
         console.log(user_attributes);
@@ -30,7 +35,7 @@ class Graph_data_retrieval
             $("#Loader").show();
             window.setTimeout( function(){
                 $.ajax({
-                
+
                     data: {
                         policy:policy,
                         user_attributes:user_attributes,
@@ -42,26 +47,26 @@ class Graph_data_retrieval
                     },
                     type: "post",
                     url: "../AddPolicy/save_graph_to_DB.php",
-                    
+
                     success: function(data){
-                        
+
                         $('#Loader').hide();
                         alert(data);
                     }
-                    
-                    
-    
+
+
+
                 });
             }, 1000 );
-            
+
         }
         else
         {
             alert("Cancelled saving");
         }
-        
+
     }
-    
+
 
     // finde nodes that match the classes string
     find_nodes(nodes_json, classes)
@@ -88,7 +93,7 @@ class Graph_data_retrieval
                 nodes[index] = [nodes_json[i].data.name, nodes_json[i].data.parent];
                 index ++;
             }
-            
+
         }
         return nodes;
     }
@@ -108,9 +113,9 @@ class Graph_data_retrieval
                 {
                     nodes[nodes_json[i].data.name] = nodes_json[i].data.parent;
                 }
-                
+
             }
-            
+
         }
         return nodes;
     }
@@ -141,7 +146,7 @@ class Graph_data_retrieval
             }
             else
             {
-                source_target[edges_json[i].data.source][edges_json[i].data.target].push(edges_json[i].data.name);    
+                source_target[edges_json[i].data.source][edges_json[i].data.target].push(edges_json[i].data.name);
 
             }
 
@@ -149,5 +154,5 @@ class Graph_data_retrieval
         return source_target;
     }
 
-    
+
 }
