@@ -6,7 +6,7 @@ the NGAC framework.
 ![demo](Images+DAG-backup/demo.png "Graph UI demo")
 
 The full project version of this UI together with a complete front end solution can be found at [github.com/Emn98/D0020E](https://github.com/Emn98/D0020E), there you'll
-find added features for database integration, file handling and more.
+find added graph features for database integration, file handling and more.
 
 ## Directed acyclic graph version
 An alternative DAG version is also included in this repository, this layout is more in line with what the originators of NGAC had in mind but was not part of our final 
