@@ -1,5 +1,11 @@
 class NgacDoc {
 
+	#drawMode;
+
+	constructor() {
+		this.#drawMode = false;
+	}
+
 	addNode() {
 		var ele_name = document.getElementById('namefield').value;
 		if (this.nameTaken(ele_name)) {
@@ -16,22 +22,29 @@ class NgacDoc {
 	}
 
 	// User is in new node placement mode
-	placeNode(name, type, attr) {
-		var nodeData = (type.includes('attribute')) ? { id: name, name: name, parent: attr } : { name: name, parent: attr };
+	placeNode(id, type, attr) {
 		document.body.style.cursor='crosshair';
 		// Register one time click event to place new node
 		cy.one("tap", function(e) {
 		    cy.add({
 		        group: "nodes",
-		        data: nodeData,
+		        data: { id: id, name: id },
 		        renderedPosition: {
 		            x: e.renderedPosition.x,
 		            y: e.renderedPosition.y,
 						},
 						classes: type
 					});
+					// Assign to attribute if one was selected
+					if (attr != 'None') {
+						cy.add({
+							group: 'edges',
+							data: { source: id, target: attr }
+						});
+					}
 					document.body.style.cursor='auto';
 		});
+		console.log("Hej");
 
 	}
 
@@ -54,18 +67,6 @@ class NgacDoc {
 
 		this.edgePrompt(false);
 
-	}
-
-	renderLayout(){
-		var layout = cy.layout({
-			name: 'cose-bilkent',
-			animate: 'end',
-			animationEasing: 'ease-out',
-			animationDuration: 2000,
-			randomize: true
-		});
-
-		layout.run();
 	}
 
 	// Load all parents to the attribute field in add element prompt

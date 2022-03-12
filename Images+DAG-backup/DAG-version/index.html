@@ -20,6 +20,7 @@
     <script src="js/filehandler.js"></script>
 
 
+
     <script>
 
       var ngacJS = new NgacDoc();
@@ -29,9 +30,14 @@
         var cy = window.cy = cytoscape({
           container: document.getElementById('cy'),
 
+          layout: {
+            name: 'dagre'
+          },
+
+          /*
           ready: function(){
             this.layout({name: 'cose-bilkent', animationDuration: 1000}).run();
-          },
+          },*/
 
 
           style: [
@@ -46,35 +52,26 @@
               selector: 'edge',
               style: {
                 'curve-style': 'bezier',
-                'target-arrow-shape': 'triangle',
-                'content': 'data(name)'
+                'target-arrow-shape': 'triangle'
               }
             },
 
             {
               selector: '.Object',
               style: {
-                'shape': 'rectangle',
-                'width': '50px'
-              }
-            },
-
-            {
-              selector: '.attribute:childless',
-              style: {
-                'background-color' : '#DCDCDC',
-                'border-color' : '#D3D3D3',
-                'border-width' : '1px',
-                'border-style' : 'solid'
+                'shape': 'rectangle'
               }
             },
 
             {
               "selector": ".edgelabel",
               "style": {
+                'content': 'data(name)',
                 "color": "#fff",
-                "text-outline-color": "#888",
+                "text-outline-color": '#888',
                 "text-outline-width": 2,
+                'line-style': 'dashed',
+                "target-arrow-shape": "none",
                 'font-size': '12px'
               }
             },
@@ -83,6 +80,8 @@
               selector: '.attribute',
               style: {
                 'shape': 'round-rectangle',
+                'height': '35px',
+                'width': '50px',
                 'border-width': '2px',
                 'border-style' : 'solid'
               }
@@ -100,6 +99,15 @@
               style: {
                 'border-color' : '#318CE7'
               }
+            },
+
+            {
+              selector: '.Policy.Class',
+              style: {
+                'shape': 'pentagon',
+                'height': '40px',
+                'width': '75px'
+              }
             }
 
 
@@ -109,29 +117,47 @@
             nodes: [
 
               // Attributes
-              { data: { id: 'Books', name: 'Books' }, classes: 'Object attribute' },
               { data: { id: 'Documents', name: 'Documents' }, classes: 'Object attribute'  },
               { data: { id: 'Team', name: 'Team' }, classes: 'User attribute'  },
-              { data: { id: 'Lord of the rings', name: 'Lord of the rings', parent: 'Books' }, classes: 'Object attribute'  },
-
-              // Objects
-              { data: { name: 'The Hobbit', parent: 'Books' }, classes: 'Object' },
-              { data: { name: 'Fellowship of the ring', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { name: 'The Two Towers', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { name: 'Return of the king', parent: 'Lord of the rings' }, classes: 'Object' },
-              { data: { name: 'Secret Document', parent: 'Documents' }, classes: 'Object' },
+              { data: { id: 'Lord of the rings', name: 'Lord of the rings' }, classes: 'Object attribute'  },
+              { data: { id: 'New Team', name: 'New Team' }, classes: 'User attribute'  },
+              { data: { id: 'Teams', name: 'Teams' }, classes: 'User attribute'  },
 
               // Users
-              { data: { name: 'Ilaman', parent: 'Team' }, classes: 'User' },
-              { data: { name: 'Jesper', parent: 'Team' }, classes: 'User' },
-              { data: { name: 'Emil', parent: 'Team' }, classes: 'User' },
-              { data: { name: 'Birger', parent: 'Team' }, classes: 'User' }
+              { data: { id: 'Ilaman', name: 'Ilaman' }, classes: 'User' },
+              { data: { id: 'Jesper', name: 'Jesper' }, classes: 'User' },
+              { data: { id: 'Emil', name: 'Emil' }, classes: 'User' },
+              { data: { id: 'Frank', name: 'Frank' }, classes: 'User' },
+              { data: { id: 'Birger', name: 'Birger' }, classes: 'User' },
+
+              // Objects
+              { data: { id: 'Fellowship of the ring', name: 'Fellowship of the ring' }, classes: 'Object' },
+              { data: { id: 'The Two Towers', name: 'The Two Towers' }, classes: 'Object' },
+              { data: { id: 'Return of the king', name: 'Return of the king' }, classes: 'Object' },
+              { data: { id: 'Secret Document', name: 'Secret Document' }, classes: 'Object' },
+
+              // Policy Class
+              { data: { id: 'Demo', name: 'Demo' }, classes: 'Policy Class'  }
+
             ],
-              // Associations
             edges: [
-              { data: { name: 'Write', source: 'Team', target: 'Books' }, classes: 'edgelabel' },
-              { data: { name: 'Read', source: 'Team', target: 'Documents' }, classes: 'edgelabel' },
-              { data: { name: 'Write', source: 'Team', target: 'Lord of the rings' }, classes: 'edgelabel' }
+
+              // Assignments
+              { data: { source: 'Ilaman', target: 'Team' } },
+              { data: { source: 'Jesper', target: 'Team' } },
+              { data: { source: 'Birger', target: 'Team' } },
+              { data: { source: 'Emil', target: 'Team' } },
+              { data: { source: 'Emil', target: 'New Team' } },
+              { data: { source: 'Secret Document', target: 'Documents' } },
+              { data: { source: 'The Two Towers', target: 'Lord of the rings' } },
+              { data: { source: 'Return of the king', target: 'Lord of the rings' } },
+              { data: { source: 'Fellowship of the ring', target: 'Lord of the rings' } },
+              { data: { source: 'Frank', target: 'New Team' } },
+              { data: { source: 'Team', target: 'Teams' } },
+              { data: { source: 'New Team', target: 'Teams' } },
+              { data: { source: 'Teams', target: 'Demo' } },
+              { data: { source: 'Documents', target: 'Demo' } },
+              { data: { source: 'Lord of the rings', target: 'Demo' } }
             ]
           }
         });
@@ -166,8 +192,14 @@
         });
 
         document.querySelector('#layout').addEventListener('click', function() {
-          ngacJS.renderLayout();
+          //ngacJS.renderLayout(); Deprecated
         });
+
+        cy.add([
+          // Associations (Have to be added after layout has been run)
+          { data: { name: 'Write', source: 'Team', target: 'Documents' }, classes: 'edgelabel' },
+          { data: { name: 'Read', source: 'Teams', target: 'Lord of the rings' }, classes: 'edgelabel' }
+        ]);
 
         cy.panzoom({
 					// options here...
@@ -206,7 +238,6 @@
 
     </div>
 
-
     <div id="prompt-overlay"></div>
 
     <div class="add-menu" style="display: block;">
@@ -239,7 +270,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="attributefield" class="form-label">Attribute</label>
+          <label for="attributefield" class="form-label">Assign To</label>
           <select class="form-select" id="attributefield" aria-label="Default select example">
             <option selected>None</option>
           </select>
@@ -281,7 +312,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="relationfield" class="form-label">Access privilege</label>
+          <label for="relationfield" class="form-label">Access Right</label>
           <select class="form-select" id="relationfield" aria-label="Default select example">
             <option selected>Read</option>
             <option>Write</option>
