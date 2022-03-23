@@ -8,6 +8,6 @@ the NGAC framework.
 This UI was part of a front end project which can be found at [github.com/Emn98/D0020E](https://github.com/Emn98/D0020E), there you'll added graph features such as file handling, database options and more.
 
 ## Directed acyclic graph version
-An alternative DAG version is also included in this repository; this approach is more in line with what the originators of the NGAC Policy Machine had in mind but was not part of our final solution due to visual preference and tedious layout management with access right edges. 
+An alternative DAG version is included in this repository; this approach is more in line with what the originators of the NGAC Policy Machine had in mind but was not part of our final solution due to visual preference and tedious layout management with access right edges. 
 
 ![DAG](Images+DAG-backup/DAG-demo.png "DAG demo")
