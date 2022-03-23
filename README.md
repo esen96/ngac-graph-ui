@@ -9,6 +9,6 @@ The full project version of this UI together with a complete front end solution 
 find added graph features for database integration, file handling and more.
 
 ## Directed acyclic graph version
-An alternative DAG version is also included in this repository; this approach is more in line with what the originators of the NGAC Policy Machine had in mind but was not part of our final solution due to visual preference and tedious layout management with access right edges in the graph. 
+An alternative DAG version is also included in this repository; this approach is more in line with what the originators of the NGAC Policy Machine had in mind but was not part of our final solution due to visual preference and tedious layout management with access right edges. 
 
 ![DAG](Images+DAG-backup/DAG-demo.png "DAG demo")
